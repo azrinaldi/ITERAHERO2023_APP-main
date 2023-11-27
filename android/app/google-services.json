@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "132302314137",
+    "project_id": "iterahero-5ec02",
+    "storage_bucket": "iterahero-5ec02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132302314137:android:5c3dbb2d49223b6ef2f608",
+        "android_client_info": {
+          "package_name": "com.monitoringiterahrro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132302314137-p0nmh9ndq9hbs3qi0op3d35b21c1tl8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1pBSsLymhb3EwBkIfjwZmTnqCkxUXCmM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "132302314137-p0nmh9ndq9hbs3qi0op3d35b21c1tl8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
