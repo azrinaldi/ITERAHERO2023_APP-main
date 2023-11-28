@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, TextInput, Button} from 'react-native';
 import styles from './peracikan_style';
+import {Select, SelectItem, Text} from '@ui-kitten/components';
 
 import stylesGlobal from '../../../utils/style_global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,7 +26,15 @@ const PeracikanScreen = props => {
 
   console.log('DATA RESEP: ', dataResepPupuk.data);
 
-  return <View></View>;
+  return (
+    <View>
+      <Select
+        label={evaProps => <Text {...evaProps}>Label</Text>}
+        caption={evaProps => <Text {...evaProps}>Caption</Text>}>
+        <SelectItem title={evaProps => <Text {...evaProps}>Option 1</Text>} />
+      </Select>
+    </View>
+  );
 };
 
 export default PeracikanScreen;
