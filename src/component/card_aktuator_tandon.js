@@ -10,9 +10,7 @@ const CardMonitoring = props => {
   const [status, setStatus] = useState(data.status === 1);
 
   const toggleSwitch = async id => {
-    console.log('ini data idnya: ', id);
     var token = await AsyncStorage.getItem('token');
-    console.log('ini tokennnya bg: ', token);
     const updatedStatus = !status;
     setStatus(updatedStatus);
     axios

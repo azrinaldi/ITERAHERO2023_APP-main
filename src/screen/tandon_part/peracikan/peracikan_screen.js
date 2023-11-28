@@ -8,6 +8,7 @@ import styles from './peracikan_style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getFirstResepPupuk} from '../../../redux/action';
 import stylesGlobal from '../../../utils/style_global';
+import {apiPeracikan} from '../../../utils/api_link';
 
 const PeracikanScreen = props => {
   const [value, setValue] = useState(null);
@@ -73,10 +74,33 @@ const PeracikanScreen = props => {
     setValue(null);
     setSelectedFormula(null);
   };
-  const handleBatalSimpanPress = () => {
+  const handleResetPress = () => {
     setIsDropdownDisabled(false);
     setIsNameInputVisible(false);
     setIsAddList(false);
+    setValue(null);
+    setSelectedFormula(null);
+  };
+
+  const handleSimpan = async id => {
+    var token = await AsyncStorage.getItem('token');
+    axios
+      .post(
+        apiPeracikan,
+        {},
+        {
+          params: {},
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(response.data.message);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   return (
@@ -172,7 +196,7 @@ const PeracikanScreen = props => {
           {isAddList ? (
             <>
               <TouchableOpacity
-                onPress={handleBatalSimpanPress}
+                onPress={handleResetPress}
                 style={[
                   styles.button,
                   {backgroundColor: '#B00020', width: '48%'},
@@ -180,7 +204,7 @@ const PeracikanScreen = props => {
                 <Text style={styles.buttonText}>Batal</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={handleBatalSimpanPress}
+                onPress={(handleResetPress, handleSimpan)}
                 style={[
                   styles.button,
                   {backgroundColor: '#09322D', width: '48%'},
