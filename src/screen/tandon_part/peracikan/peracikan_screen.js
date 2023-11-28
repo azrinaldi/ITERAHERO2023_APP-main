@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
 
 import styles from './peracikan_style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getFirstResepPupuk} from '../../../redux/action';
+import { getFirstResepPupuk } from '../../../redux/action';
 import stylesGlobal from '../../../utils/style_global';
-import {apiPeracikan} from '../../../utils/api_link';
+import { apiSimpanResep } from '../../../utils/api_link';
 
 const PeracikanScreen = props => {
   const [value, setValue] = useState(null);
@@ -20,11 +21,10 @@ const PeracikanScreen = props => {
   const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);
   const [isAddList, setIsAddList] = useState(false);
-  const [dropdownRef, setDropdownRef] = useState(null);
   const [selectedFormula, setSelectedFormula] = useState(null);
 
   const dispatch = useDispatch();
-  const {dataResepPupuk} = useSelector(state => state.userReducer);
+  const { dataResepPupuk } = useSelector(state => state.userReducer);
 
   const getApi = () => {
     AsyncStorage.getItem('token').then(respons => {
@@ -33,14 +33,10 @@ const PeracikanScreen = props => {
     });
   };
 
-  useEffect(() => {
-    getApi();
-  }, []);
-
   const renderLabel = () => {
     if (value || isFocus) {
       return (
-        <Text style={[styles.labelDropdown, isFocus && {color: 'blue'}]}>
+        <Text style={[styles.labelDropdown, isFocus && { color: 'blue' }]}>
           Formula
         </Text>
       );
@@ -52,12 +48,12 @@ const PeracikanScreen = props => {
   const dropdownData =
     dataResepPupuk.data !== undefined
       ? dataResepPupuk.data.map(item => ({
-          label: String(item.nama),
-          value: item.id,
-          ph: item.ph,
-          ppm: item.ppm,
-          volume: item.volume,
-        }))
+        label: String(item.nama),
+        value: item.id,
+        ph: item.ph,
+        ppm: item.ppm,
+        volume: item.volume,
+      }))
       : [];
 
   console.log('ini data resep', dropdownData);
@@ -74,19 +70,24 @@ const PeracikanScreen = props => {
     setValue(null);
     setSelectedFormula(null);
   };
-  const handleResetPress = () => {
+  const handleReset = () => {
     setIsDropdownDisabled(false);
     setIsNameInputVisible(false);
     setIsAddList(false);
+
+    onChangeNama('');
+    onChangePHValue('');
+    onChangePPMValue('');
+    onChangeVolumeValue('');
     setValue(null);
     setSelectedFormula(null);
   };
 
-  const handleSimpan = async (nama, ph, ppm, volume) => {
+  const handleSimpanResep = async (nama, ph, ppm, volume) => {
     var token = await AsyncStorage.getItem('token');
     axios
       .post(
-        apiPeracikan,
+        apiSimpanResep,
         {
           nama: nama,
           ph: parseFloat(ph),
@@ -97,7 +98,7 @@ const PeracikanScreen = props => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       )
       .then(response => {
         console.log('Formula berhasil disimpan :', response.data);
@@ -106,7 +107,14 @@ const PeracikanScreen = props => {
         console.error('Error menyimpan formula :', error);
       });
     console.log('Simpan ', nama, ph, ppm, volume);
+    getApi();
+    handleReset();
   };
+
+  useEffect(() => {
+    getApi();
+  }, []);
+
   return (
     <View>
       <View>
@@ -125,7 +133,7 @@ const PeracikanScreen = props => {
             placeholder={!isFocus ? 'Pilih Formula' : '...'}
             value={value}
             itemContainerStyle={{}}
-            itemTextStyle={{color: 'black', fontSize: 14}}
+            itemTextStyle={{ color: 'black', fontSize: 14 }}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
             onChange={item => {
@@ -200,18 +208,18 @@ const PeracikanScreen = props => {
           {isAddList ? (
             <>
               <TouchableOpacity
-                onPress={handleResetPress}
+                onPress={handleReset}
                 style={[
                   styles.button,
-                  {backgroundColor: '#B00020', width: '48%'},
+                  { backgroundColor: '#B00020', width: '48%' },
                 ]}>
                 <Text style={styles.buttonText}>Batal</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={(handleResetPress, handleSimpan)}
+                onPress={() => handleSimpanResep(Nama, phValue, ppmValue, Volume)}
                 style={[
                   styles.button,
-                  {backgroundColor: '#09322D', width: '48%'},
+                  { backgroundColor: '#09322D', width: '48%' },
                 ]}>
                 <Text style={styles.buttonText}>Simpan</Text>
               </TouchableOpacity>
@@ -220,7 +228,7 @@ const PeracikanScreen = props => {
             <TouchableOpacity
               style={[
                 styles.button,
-                {backgroundColor: '#09322D', width: '100%'},
+                { backgroundColor: '#09322D', width: '100%' },
               ]}>
               <Text style={styles.buttonText}>Racik</Text>
             </TouchableOpacity>
