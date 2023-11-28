@@ -33,3 +33,4 @@ export const switchAkuatorTandon = link + '/kontrol';
 export const listSensor = link + '/logging';
 
 export const resepPupuk = link + '/resep';
+export const apiPeracikan = link + '/peracikan';

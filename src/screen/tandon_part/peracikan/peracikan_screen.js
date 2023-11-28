@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import {SelectDropdown} from 'react-native-select-dropdown';
-import DropdownComponent from '../../../component/card_dropdown_formula';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from './peracikan_style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getFirstResepPupuk} from '../../../redux/action';
+import stylesGlobal from '../../../utils/style_global';
 
 const PeracikanScreen = props => {
   const [value, setValue] = useState(null);
@@ -16,6 +16,9 @@ const PeracikanScreen = props => {
   const [ppmValue, onChangePPMValue] = React.useState('');
   const [Nama, onChangeNama] = React.useState('');
   const [Volume, onChangeVolumeValue] = React.useState('');
+  const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
+  const [isNameInputVisible, setIsNameInputVisible] = useState(false);
+  const [isAddList, setIsAddList] = useState(false);
 
   const dispatch = useDispatch();
   const {dataResepPupuk} = useSelector(state => state.userReducer);
@@ -58,6 +61,17 @@ const PeracikanScreen = props => {
 
   console.log('ini data resep', dropdownData);
 
+  const handleAddPress = () => {
+    setIsDropdownDisabled(true);
+    setIsNameInputVisible(true);
+    setIsAddList(true);
+  };
+  const handleBatalSimpanPress = () => {
+    setIsDropdownDisabled(false);
+    setIsNameInputVisible(false);
+    setIsAddList(false);
+  };
+
   return (
     <View>
       <View>
@@ -89,23 +103,34 @@ const PeracikanScreen = props => {
               onChangeVolumeValue(String(item.volume));
               setIsFocus(false);
             }}
+            disable={isDropdownDisabled}
           />
-          <Button color="#3DB35F" style={styles.buttonAdd}>
-            +
-          </Button>
+          <TouchableOpacity
+            style={styles.buttonAdd}
+            onPress={handleAddPress}
+            disabled={isDropdownDisabled}>
+            <Icon
+              name="add-circle-sharp"
+              size={23}
+              color="#ffffff"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.containerForm}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Nama</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeNama}
-            value={Nama}
-            keyboardType="string"
-            required
-          />
-        </View>
+        {isNameInputVisible && (
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Nama</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeNama}
+              value={Nama}
+              keyboardType="string"
+              required
+            />
+          </View>
+        )}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>PH</Text>
           <TextInput
@@ -136,7 +161,36 @@ const PeracikanScreen = props => {
             required
           />
         </View>
-        <Button color="#09322D" title="Racik" />
+        <View style={styles.buttonField}>
+          {isAddList ? (
+            <>
+              <TouchableOpacity
+                onPress={handleBatalSimpanPress}
+                style={[
+                  styles.button,
+                  {backgroundColor: '#B00020', width: '48%'},
+                ]}>
+                <Text style={styles.buttonText}>Batal</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleBatalSimpanPress}
+                style={[
+                  styles.button,
+                  {backgroundColor: '#09322D', width: '48%'},
+                ]}>
+                <Text style={styles.buttonText}>Simpan</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {backgroundColor: '#09322D', width: '100%'},
+              ]}>
+              <Text style={styles.buttonText}>Racik</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );

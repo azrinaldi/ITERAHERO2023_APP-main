@@ -15,8 +15,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  buttonField: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  button: {
+    height: 40, // Set height as needed
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
+    elevation: 1,
+    shadowOpacity: 1,
+    shadowRadius: 1,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   buttonAdd: {
-    width: '20%',
+    marginLeft: 5,
+    margin: 5,
+    width: '10%',
+
+    backgroundColor: '#09322D',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 1,
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    borderRadius: 5,
   },
   containerForm: {
     borderRadius: 10,
@@ -31,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   dropdown: {
-    width: '80%',
+    width: '85%',
     height: 40,
     borderColor: 'black',
     borderWidth: 1,
