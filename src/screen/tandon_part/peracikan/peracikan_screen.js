@@ -82,27 +82,31 @@ const PeracikanScreen = props => {
     setSelectedFormula(null);
   };
 
-  const handleSimpan = async id => {
+  const handleSimpan = async (nama, ph, ppm, volume) => {
     var token = await AsyncStorage.getItem('token');
     axios
       .post(
         apiPeracikan,
-        {},
         {
-          params: {},
+          nama: nama,
+          ph: parseFloat(ph),
+          ppm: parseFloat(ppm),
+          volume: parseFloat(volume),
+        },
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       )
       .then(response => {
-        console.log(response.data.message);
+        console.log('Formula berhasil disimpan :', response.data);
       })
-      .catch(err => {
-        console.error(err);
+      .catch(error => {
+        console.error('Error menyimpan formula :', error);
       });
+    console.log('Simpan ', nama, ph, ppm, volume);
   };
-
   return (
     <View>
       <View>
