@@ -60,37 +60,42 @@ const PeracikanScreen = props => {
 
   return (
     <View>
-      <View style={styles.container}>
-        {renderLabel()}
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={dropdownData}
-          labelField="label"
-          valueField="value"
-          placeholder="Select item"
-          placeholder={!isFocus ? 'Pilih Formula' : '...'}
-          value={value}
-          itemContainerStyle={{}}
-          itemTextStyle={{color: 'black', fontSize: 14}}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setSelectedFormula(item); // Added to set selected formula
-            // Update input values based on selected formula
-            onChangeNama(item.label);
-            onChangePHValue(String(item.ph));
-            onChangePPMValue(String(item.ppm));
-            onChangeVolumeValue(String(item.volume));
-            setIsFocus(false);
-          }}
-        />
+      <View>
+        <View style={styles.containerSelect}>
+          {renderLabel()}
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            data={dropdownData}
+            labelField="label"
+            valueField="value"
+            placeholder="Select item"
+            placeholder={!isFocus ? 'Pilih Formula' : '...'}
+            value={value}
+            itemContainerStyle={{}}
+            itemTextStyle={{color: 'black', fontSize: 14}}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={item => {
+              setValue(item.value);
+              setSelectedFormula(item); // Added to set selected formula
+              // Update input values based on selected formula
+              onChangeNama(item.label);
+              onChangePHValue(String(item.ph));
+              onChangePPMValue(String(item.ppm));
+              onChangeVolumeValue(String(item.volume));
+              setIsFocus(false);
+            }}
+          />
+          <Button color="#3DB35F" style={styles.buttonAdd}>
+            +
+          </Button>
+        </View>
       </View>
-      <View style={styles.container}>
+      <View style={styles.containerForm}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Nama</Text>
           <TextInput
@@ -98,6 +103,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangeNama}
             value={Nama}
             keyboardType="string"
+            required
           />
         </View>
         <View style={styles.inputContainer}>
@@ -107,6 +113,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangePHValue}
             value={phValue}
             keyboardType="numeric"
+            required
           />
         </View>
         <View style={styles.inputContainer}>
@@ -116,6 +123,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangePPMValue}
             value={ppmValue}
             keyboardType="numeric"
+            required
           />
         </View>
         <View style={styles.inputContainer}>
@@ -125,6 +133,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangeVolumeValue}
             value={Volume}
             keyboardType="numeric"
+            required
           />
         </View>
         <Button color="#09322D" title="Racik" />
