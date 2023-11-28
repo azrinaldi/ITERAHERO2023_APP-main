@@ -23,10 +23,7 @@ const PeracikanScreen = props => {
     getApiById();
   }, []);
 
-  console.log('DATA RESEP:: ', dataResepPupuk.data);
-  const [phValue, onChangePHValue] = React.useState('');
-  const [ppmValue, onChangePPMValue] = React.useState('');
-  const [Nama, onChangeNama] = React.useState('');
+  console.log('DATA RESEP: ', dataResepPupuk.data);
 
   return <View></View>;
 };
