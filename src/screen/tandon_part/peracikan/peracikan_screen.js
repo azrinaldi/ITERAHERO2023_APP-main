@@ -19,6 +19,8 @@ const PeracikanScreen = props => {
   const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);
   const [isAddList, setIsAddList] = useState(false);
+  const [dropdownRef, setDropdownRef] = useState(null);
+  const [selectedFormula, setSelectedFormula] = useState(null);
 
   const dispatch = useDispatch();
   const {dataResepPupuk} = useSelector(state => state.userReducer);
@@ -33,8 +35,6 @@ const PeracikanScreen = props => {
   useEffect(() => {
     getApi();
   }, []);
-
-  const [selectedFormula, setSelectedFormula] = useState(null);
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -65,6 +65,13 @@ const PeracikanScreen = props => {
     setIsDropdownDisabled(true);
     setIsNameInputVisible(true);
     setIsAddList(true);
+
+    onChangeNama('');
+    onChangePHValue('');
+    onChangePPMValue('');
+    onChangeVolumeValue('');
+    setValue(null);
+    setSelectedFormula(null);
   };
   const handleBatalSimpanPress = () => {
     setIsDropdownDisabled(false);
