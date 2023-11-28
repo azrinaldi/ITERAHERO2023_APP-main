@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import  SelectDropdownProps from 'react-native-select-dropdown';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import SelectDropdownProps from 'react-native-select-dropdown';
 
 const data = [
-  { label: 'Melon', value: '1', ph: '7', ppm: '800' },
-  { label: 'Mangga', value: '2', ph: '6.8', ppm: '1000' },
-  { label: 'Apel', value: '3', ph: '7', ppm: '1200' },
-  { label: 'Jeruk', value: '4', ph: '7.2', ppm: '1400' },
+  {label: 'Melon', value: '1', ph: '7', ppm: '800'},
+  {label: 'Mangga', value: '2', ph: '6.8', ppm: '1000'},
+  {label: 'Apel', value: '3', ph: '7', ppm: '1200'},
+  {label: 'Jeruk', value: '4', ph: '7.2', ppm: '1400'},
 ];
 const DropdownFormula = () => {
   const [value, setValue] = useState(null);
@@ -15,9 +15,7 @@ const DropdownFormula = () => {
   const renderLabel = () => {
     if (value || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-          Formula
-        </Text>
+        <Text style={[styles.label, isFocus && {color: 'blue'}]}>Formula</Text>
       );
     }
     return null;
@@ -26,20 +24,20 @@ const DropdownFormula = () => {
     <View style={styles.container}>
       {renderLabel()}
       <SelectDropdownProps
-        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
         data={data}
-        textStyle={{ color: 'black' }} 
+        textStyle={{color: 'black'}}
         maxHeight={300}
         labelField="label"
         valueField="value"
         placeholder={!isFocus ? 'Pilih Formula' : '...'}
         value={value}
         itemContainerStyle={{}}
-        itemTextStyle={{ color: 'black', fontSize: 12 }} 
+        itemTextStyle={{color: 'black', fontSize: 12}}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
-    color: 'black'
+    color: 'black',
   },
   label: {
     color: 'black',
@@ -82,11 +80,11 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 14,
-    color: 'black'
+    color: 'black',
   },
   selectedTextStyle: {
     fontSize: 14,
-    color: 'black'
+    color: 'black',
   },
   iconStyle: {
     width: 20,
@@ -97,4 +95,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-export default DropdownFormula
+export default DropdownFormula;

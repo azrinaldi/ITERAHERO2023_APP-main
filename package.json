@@ -33,6 +33,7 @@
     "react-icons": "^4.12.0",
     "react-native": "0.70.0",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-element-dropdown": "^2.10.0",
     "react-native-gradle-plugin": "^0.71.19",
     "react-native-logs": "^5.0.1",
     "react-native-mqtt-client": "^0.0.1",
