@@ -1,62 +1,34 @@
-import React from "react";
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StatusBar,
-    SafeAreaView,
-    ImageBackground,
-    TextInput,
-    Button,
-} from 'react-native';
-import styles from "./peracikan_style";
-import DropdownFormula from "../../../component/card_dropdown_formula";
-import stylesGlobal from "../../../utils/style_global";
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {View, Text, TextInput, Button} from 'react-native';
+import styles from './peracikan_style';
 
-const PeracikanScreen = (props) => {
-    
-    const [phValue, onChangePHValue] = React.useState('');
-    const [ppmValue, onChangePPMValue] = React.useState('');
-    const [Nama, onChangeNama] = React.useState('');
+import stylesGlobal from '../../../utils/style_global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getFirstResepPupuk} from '../../../redux/action';
 
-    return(
-        <View>
-            {/* <DropdownFormula/> */}
-            <View style={styles.card}>
-            <View style={styles.inputContainer}>
-                    <Text style={styles.label}>Nama</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangeNama}
-                        value={Nama}
-                        keyboardType="string"
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>PH</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangePHValue}
-                        value={phValue}
-                        keyboardType="numeric"
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.label}>PPM</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangePPMValue}
-                        value={ppmValue}
-                        keyboardType="numeric"
-                    />
-                </View>
-                <Button
-                    color="#09322D"
-                    title="Submit"
-                />
-            </View>
-        </View>
-    );
+const PeracikanScreen = props => {
+  const dispatch = useDispatch();
+
+  const {dataResepPupuk} = useSelector(state => state.userReducer);
+
+  const getApiById = () => {
+    AsyncStorage.getItem('token').then(respons => {
+      dispatch(getFirstResepPupuk(respons));
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getApiById();
+  }, []);
+
+  console.log('DATA RESEP:: ', dataResepPupuk.data);
+  const [phValue, onChangePHValue] = React.useState('');
+  const [ppmValue, onChangePPMValue] = React.useState('');
+  const [Nama, onChangeNama] = React.useState('');
+
+  return <View></View>;
 };
 
-export default PeracikanScreen
+export default PeracikanScreen;

@@ -18,6 +18,8 @@ export const GET_API_LIST_TANDON = 'GET_API_LIST_TANDON';
 export const GET_FIRST_TANDON = 'GET_FIRST_TANDON';
 export const GET_AKTUATOR_TANDON_BY_ID = 'GET_AKTUATOR_TANDON_BY_ID';
 
+export const GET_RESEP_PUPUK = 'GET_RESEP_PUPUK';
+
 import {
   dashboardApi,
   listGreenHouse,
@@ -26,6 +28,7 @@ import {
   controllingApi,
   listTandon,
   AktuatorTandon,
+  resepPupuk,
 } from '../utils/api_link';
 
 // const navigate = useNavigation()
@@ -61,6 +64,11 @@ export const getApiListTandon = data => ({
 
 export const getApiDashboard = data => ({
   type: GET_API_DASHBOARD,
+  data: data,
+});
+
+export const getResepPupuk = data => ({
+  type: GET_RESEP_PUPUK,
   data: data,
 });
 
@@ -183,15 +191,19 @@ export const getAktuatorTandonById = (id, token) => {
   };
 };
 
-// export const postSwitchAktuatorTandon = (id, token) => {
-//   return async dispatch => {
-//     return await axios.post(switchAktuatorTandon + id, {
-//       headers: {
-//         Authorization: 'Bearer ' + token,
-//       },
-//     });
-//     dispatch({
-//         type: ,
-//         payload: data,
-//       });
-// };
+export const getFirstResepPupuk = token => {
+  return async dispatch => {
+    return await axios
+      .get(resepPupuk, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_RESEP_PUPUK,
+          payload: data,
+        });
+      });
+  };
+};

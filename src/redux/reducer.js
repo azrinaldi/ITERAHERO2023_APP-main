@@ -13,6 +13,7 @@ import {
   GET_AKTUATOR_TANDON_BY_ID,
   GET_API_DASHBOARD,
   GET_FIRST_DASHBOARD,
+  GET_RESEP_PUPUK,
 } from './action';
 
 const initialState = {
@@ -30,6 +31,8 @@ const initialState = {
   dataGreenHouseById: [],
   dataMonitoringByid: [],
   dataControllingByid: [],
+
+  dataResepPupuk: [],
 };
 
 function userReducer(state = initialState, action) {
@@ -64,6 +67,8 @@ function userReducer(state = initialState, action) {
     case GET_AKTUATOR_TANDON_BY_ID:
       return {...state, dataAktuatorTandonById: action.payload};
 
+    case GET_RESEP_PUPUK:
+      return {...state, dataResepPupuk: action.payload};
     default:
       return state;
   }
