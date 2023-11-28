@@ -1,7 +1,24 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  containerSelect: {
+    borderRadius: 10,
+    backgroundColor: 'white',
+    borderColor: '#171717',
+    elevation: 1,
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  buttonAdd: {
+    width: '20%',
+  },
+  containerForm: {
     borderRadius: 10,
     backgroundColor: 'white',
     borderColor: '#171717',
@@ -14,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   dropdown: {
+    width: '80%',
     height: 40,
     borderColor: 'black',
     borderWidth: 1,
@@ -51,10 +69,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   label: {
     color: 'black',
+    fontFamily: 'Montserrat Bold 700',
+    fontSize: 14,
     width: '20%', // Lebar label
   },
   input: {
