@@ -14,7 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getFirstJadwal} from '../../../redux/action';
 import Loading from '../../../component/loading';
 import CardJadwalInfo from '../../../component/card_jadwal_info';
-import {Button} from 'react-native-vector-icons/dist/MaterialIcons';
 
 const wait = timeout => {
   return new Promise(resolve => {
@@ -58,10 +57,10 @@ const PenjadwalanScreen = props => {
   console.log('Data Aktuator Tandon:    ', dataJadwal);
 
   return (
-    <>
-      {dataJadwal != undefined && isLoading == false ? (
-        <View style={styles.container}>
-          <View>
+    <View style={styles.container}>
+      <ScrollView style={styles.formField}>
+        {dataJadwal != undefined && isLoading == false ? (
+          <>
             <ScrollView
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -85,20 +84,19 @@ const PenjadwalanScreen = props => {
                 <Loading />
               )}
             </ScrollView>
-          </View>
-          <View>
-            {/* <TouchableOpacity
-              onPress={() => navigate.navigate('FormPenjadwalanPage', {})}>
-              style=
-              {[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
-              <Text style={styles.buttonText}>Buat Jadwal</Text>
-            </TouchableOpacity> */}
-          </View>
-        </View>
-      ) : (
-        <Loading />
-      )}
-    </>
+          </>
+        ) : (
+          <Loading />
+        )}
+      </ScrollView>
+      <View style={styles.buttonField}>
+        <TouchableOpacity
+          onPress={() => navigate.navigate('FormPenjadwalanPage', {})}
+          style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
+          <Text style={styles.buttonText}>Buat Jadwal</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
