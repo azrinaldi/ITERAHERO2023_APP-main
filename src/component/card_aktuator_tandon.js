@@ -7,12 +7,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardAktuatorTandon = props => {
   const data = props.data;
-  const [status, setStatus] = useState(data.status === 1);
+  const [status, setStatus] = useState(data.status === true);
 
   const toggleSwitch = async id => {
     var token = await AsyncStorage.getItem('token');
-    const updatedStatus = !status;
-    setStatus(updatedStatus);
     axios
       .post(
         switchAkuatorTandon,
@@ -28,6 +26,8 @@ const CardAktuatorTandon = props => {
       )
       .then(response => {
         console.log(response.data.message);
+        const updatedStatus = !status;
+        setStatus(updatedStatus);
       })
       .catch(err => {
         console.error(err);

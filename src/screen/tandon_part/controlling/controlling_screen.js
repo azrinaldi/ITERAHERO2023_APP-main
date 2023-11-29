@@ -44,6 +44,7 @@ const ControllingScreenTandon = props => {
       setLoading(false);
     });
   };
+  console.log(dataAktuatorTandonById);
 
   useEffect(() => {
     getApiById();

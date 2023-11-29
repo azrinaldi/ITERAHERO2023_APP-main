@@ -1,12 +1,20 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, ScrollView, RefreshControl} from 'react-native';
+import {
+  View,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 
 import styles from './penjadwalan_style';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFirstJadwal} from '../../../redux/action';
 import Loading from '../../../component/loading';
 import CardJadwalInfo from '../../../component/card_jadwal_info';
+import {Button} from 'react-native-vector-icons/dist/MaterialIcons';
 
 const wait = timeout => {
   return new Promise(resolve => {
@@ -17,7 +25,7 @@ const wait = timeout => {
 const PenjadwalanScreen = props => {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setLoading] = useState(true);
-
+  const navigate = useNavigation();
   const id = props.data.idData;
 
   const onRefresh = useCallback(() => {
@@ -53,25 +61,39 @@ const PenjadwalanScreen = props => {
     <>
       {dataJadwal != undefined && isLoading == false ? (
         <View style={styles.container}>
-          <ScrollView
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }>
-            {dataJadwal != undefined ? (
-              dataJadwal.map(item => {
-                return (
-                  <CardJadwalInfo
-                    data={{
-                      id: item.id,
-                      status: item.isActive,
-                    }}
-                  />
-                );
-              })
-            ) : (
-              <Loading />
-            )}
-          </ScrollView>
+          <View>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }>
+              {dataJadwal != undefined ? (
+                dataJadwal.map(item => {
+                  return (
+                    <CardJadwalInfo
+                      data={{
+                        id: item.id,
+                        name: item.resep.nama,
+                        waktu: item.waktu,
+                        durasi: item.durasi,
+                        status: item.isActive,
+                        greenhouseId: item.greenhouseId,
+                      }}
+                    />
+                  );
+                })
+              ) : (
+                <Loading />
+              )}
+            </ScrollView>
+          </View>
+          <View>
+            {/* <TouchableOpacity
+              onPress={() => navigate.navigate('FormPenjadwalanPage', {})}>
+              style=
+              {[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
+              <Text style={styles.buttonText}>Buat Jadwal</Text>
+            </TouchableOpacity> */}
+          </View>
         </View>
       ) : (
         <Loading />

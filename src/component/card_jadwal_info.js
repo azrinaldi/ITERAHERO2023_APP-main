@@ -1,26 +1,21 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Image, Switch} from 'react-native';
+import {StyleSheet, View, Text, Image, Switch, Touchable} from 'react-native';
 import stylesGlobal from '../utils/style_global';
 import axios from 'axios';
-import {switchAkuatorTandon} from '../utils/api_link';
+import {apiPenjadwalan, switchAkuatorTandon} from '../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardJadwalInfo = props => {
   const data = props.data;
-  const [status, setStatus] = useState(data.status === 1);
+  const [status, setStatus] = useState(data.status === true);
 
   const toggleSwitch = async id => {
     var token = await AsyncStorage.getItem('token');
-    const updatedStatus = !status;
-    setStatus(updatedStatus);
     axios
-      .post(
-        switchAkuatorTandon,
-        {},
+      .patch(
+        apiPenjadwalan,
+        {id},
         {
-          params: {
-            id: parseInt(id),
-          },
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -28,6 +23,8 @@ const CardJadwalInfo = props => {
       )
       .then(response => {
         console.log(response.data.message);
+        const updatedStatus = !status;
+        setStatus(updatedStatus);
       })
       .catch(err => {
         console.error(err);
@@ -38,7 +35,6 @@ const CardJadwalInfo = props => {
     <>
       <View style={styles.card}>
         <View style={styles.titleAndIcon}>
-          <Image source={{uri: data.icon}} style={styles.imageIcon} />
           <View style={stylesGlobal.space10} />
           <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
             {data.name}
