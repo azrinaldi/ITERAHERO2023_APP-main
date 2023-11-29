@@ -34,7 +34,7 @@ const ControllingScreenTandon = props => {
 
   const dispatch = useDispatch();
 
-  const {dataAktuatorTandonById, menuMoCon} = useSelector(
+  const {dataAktuatorTandonById, menuTandon} = useSelector(
     state => state.userReducer,
   );
 
@@ -48,7 +48,7 @@ const ControllingScreenTandon = props => {
 
   useEffect(() => {
     getApiById();
-  }, [menuMoCon]);
+  }, [menuTandon]);
 
   console.log('Data Aktuator Tandon:    ', dataAktuatorTandonById);
 

@@ -13,24 +13,28 @@ import stylesGlobal from '../../utils/style_global';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../component/loading';
 import {getFirstResepPupuk} from '../../redux/action';
 
 const FormPenjadwalanPage = ({route, navigation}) => {
-  const [value, setValue] = useState(null);
+  const [formulaValue, setFormulaValue] = useState(null);
+  const [hariValue, setHariValue] = useState([]);
+  const [greenhouseValue, setGreenhouseValue] = useState(null);
 
-  const [selectedFormula, setSelectedFormula] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+  const [isFormulaFocus, setIsFormulaFocus] = useState(false);
+  const [isHariFocus, setIsHariFocus] = useState(false);
+  const [isGreenhouseFocus, setIsGreenhouseFocus] = useState(false);
+  const [formulaLabel, setFormulaLabel] = useState(null);
+  const [hariLabel, setHariLabel] = useState(null);
+  const [greenhouseLabel, setGreenhouseLabel] = useState(null);
+
+  const [waktuInputs, setWaktuInputs] = useState([{waktu: ''}]);
 
   const {dataResepPupuk} = useSelector(state => state.userReducer);
 
   const dispatch = useDispatch();
-
-  const ChangeMenu = data => {
-    dispatch(setMenuTandon(data));
-  };
 
   const getApi = () => {
     AsyncStorage.getItem('token').then(respons => {
@@ -38,14 +42,11 @@ const FormPenjadwalanPage = ({route, navigation}) => {
       setLoading(false);
     });
   };
-  useEffect(() => {
-    getApi();
-  }, []);
 
-  const renderLabel = () => {
-    if (value || isFocus) {
+  const renderFormulaLabel = () => {
+    if (formulaLabel || isFormulaFocus) {
       return (
-        <Text style={[styles.labelDropdown, isFocus && {color: 'blue'}]}>
+        <Text style={[styles.labelDropdown, isFormulaFocus && {color: 'blue'}]}>
           Formula
         </Text>
       );
@@ -53,10 +54,33 @@ const FormPenjadwalanPage = ({route, navigation}) => {
     return null;
   };
 
-  const dropdownData =
+  const renderHariLabel = () => {
+    if (hariLabel || isHariFocus) {
+      return (
+        <Text style={[styles.labelDropdown, isHariFocus && {color: 'blue'}]}>
+          Hari
+        </Text>
+      );
+    }
+    return null;
+  };
+
+  const renderGreenhouseLabel = () => {
+    if (greenhouseLabel || isGreenhouseFocus) {
+      return (
+        <Text
+          style={[styles.labelDropdown, isGreenhouseFocus && {color: 'blue'}]}>
+          Greenhouse
+        </Text>
+      );
+    }
+    return null;
+  };
+
+  const dataPupuk =
     dataResepPupuk.data !== undefined
       ? dataResepPupuk.data.map(item => ({
-          label: String(item.nama),
+          label: item.nama,
           value: item.id,
           ph: item.ph,
           ppm: item.ppm,
@@ -64,53 +88,99 @@ const FormPenjadwalanPage = ({route, navigation}) => {
         }))
       : [];
 
+  const dataHari = [
+    {label: 'Senin', value: 1},
+    {label: 'Selasa', value: 2},
+    {label: 'Rabu', value: 3},
+    {label: 'Kamis', value: 4},
+    {label: 'Jumat', value: 5},
+    {label: 'Sabtu', value: 6},
+    {label: 'Minggu', value: 0},
+  ];
+  const dataGreenhouse = [
+    {label: 'Iterahero', value: 1},
+    {label: 'Wanayasa', value: 2},
+  ];
+
+  const handleTambahWaktu = () => {
+    setWaktuInputs([...waktuInputs, {waktu: ''}]);
+  };
+
+  const handleWaktuInputChange = (index, text) => {
+    const updatedInputs = [...waktuInputs];
+    updatedInputs[index].waktu = text;
+    setWaktuInputs(updatedInputs);
+  };
+
+  const renderWaktuInputs = () => {
+    return waktuInputs.map((input, index) => (
+      <View style={styles.inputContainer} key={index}>
+        <Text style={styles.label}>Waktu</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="string"
+          value={input.waktu}
+          onChangeText={text => handleWaktuInputChange(index, text)}
+        />
+      </View>
+    ));
+  };
+  const handleDelete = () => {
+    if (waktuInputs.length > 0) {
+      // Remove the last waktu input only if there's more than one input
+      const updatedInputs = [...waktuInputs];
+      updatedInputs.pop();
+      setWaktuInputs(updatedInputs);
+    }
+  };
   return (
     <>
       <SafeAreaView style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
           <View style={styles.container}>
-            {renderLabel()}
+            {renderFormulaLabel()}
             <Dropdown
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
-              data={dropdownData}
+              data={dataPupuk}
               labelField="label"
               valueField="value"
               placeholder="Select item"
-              placeholder={!isFocus ? 'Pilih Formula' : '...'}
-              value={value}
+              placeholder={!isFormulaFocus ? 'Pilih Formula' : '...'}
+              value={formulaValue}
               itemContainerStyle={{}}
               itemTextStyle={{color: 'black', fontSize: 14}}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onFocus={() => setIsFormulaFocus(true)}
+              onBlur={() => setIsFormulaFocus(false)}
               onChange={item => {
-                setValue(item.value);
-                setSelectedFormula(item);
-                setIsFocus(false);
+                setFormulaLabel(item.label);
+                setFormulaValue(item.value);
+                setIsFormulaFocus(false);
               }}
             />
           </View>
           <View style={styles.container}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Waktu</Text>
-              <TextInput style={styles.input} keyboardType="string" />
+            {renderWaktuInputs()}
+            <View style={styles.buttonAddField}>
+              <TouchableOpacity onPress={handleTambahWaktu}>
+                <View style={styles.buttonAdd}>
+                  <Icon name="my-library-add" size={23} color="#3DB35F" />
+                  <Text style={(stylesGlobal.header1, stylesGlobal.secondary)}>
+                    Tambah Waktu
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              {waktuInputs.length > 1 && (
+                <TouchableOpacity onPress={handleDelete}>
+                  <View style={styles.buttonAdd}>
+                    <Icon name="delete" size={23} color="#B00020" />
+                  </View>
+                </TouchableOpacity>
+              )}
             </View>
-            <TouchableOpacity>
-              <View style={styles.buttonAdd}>
-                <Icon
-                  name="my-library-add"
-                  size={23}
-                  color="#09322D"
-                  style={styles.icon}
-                />
-                <Text style={(stylesGlobal.header1, stylesGlobal.primer)}>
-                  Tambah Waktu
-                </Text>
-              </View>
-            </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <View style={styles.inputContainer}>
@@ -119,51 +189,52 @@ const FormPenjadwalanPage = ({route, navigation}) => {
             </View>
           </View>
           <View style={styles.container}>
-            {renderLabel()}
-            <Dropdown
+            {renderHariLabel()}
+            <MultiSelect
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
-              data={dropdownData}
+              data={dataHari}
               labelField="label"
               valueField="value"
               placeholder="Select item"
-              placeholder={!isFocus ? 'Pilih Hari' : '...'}
-              value={value}
+              placeholder={!isHariFocus ? 'Pilih Hari' : '...'}
+              value={hariValue}
               itemContainerStyle={{}}
               itemTextStyle={{color: 'black', fontSize: 14}}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onFocus={() => setIsHariFocus(true)}
+              onBlur={() => setIsHariFocus(false)}
               onChange={item => {
-                setValue(item.value);
-                setIsFocus(false);
+                setHariLabel(item.label);
+                setHariValue(item);
+                setIsHariFocus(false);
               }}
+              selectedStyle={styles.selectedStyle}
             />
           </View>
           <View style={styles.container}>
-            {renderLabel()}
+            {renderGreenhouseLabel()}
             <Dropdown
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
-              data={dropdownData}
+              data={dataGreenhouse}
               labelField="label"
               valueField="value"
               placeholder="Select item"
-              placeholder={!isFocus ? 'Pilih Greenhouse' : '...'}
-              value={value}
+              placeholder={!isGreenhouseFocus ? 'Pilih Greenhouse' : '...'}
+              value={greenhouseValue}
               itemContainerStyle={{}}
               itemTextStyle={{color: 'black', fontSize: 14}}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onFocus={() => setIsGreenhouseFocus(true)}
+              onBlur={() => setIsGreenhouseFocus(false)}
               onChange={item => {
-                setValue(item.value);
-                setSelectedFormula(item);
-                setIsFocus(false);
+                setGreenhouseValue(item.value);
+                setGreenhouseLabel(item.label);
+                setIsGreenhouseFocus(false);
               }}
             />
           </View>

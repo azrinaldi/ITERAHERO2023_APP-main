@@ -1,4 +1,4 @@
-import StyleSheet from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     padding: 20,
     justifyContent: 'space-between',
+  },
+  button: {
+    height: 40,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 5,
+    elevation: 1,
+    shadowOpacity: 1,
+    shadowRadius: 1,
   },
   buttonText: {
     color: '#FFFFFF',
@@ -69,6 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 5,
   },
   label: {
     color: 'black',
@@ -78,20 +89,27 @@ const styles = StyleSheet.create({
   },
   input: {
     color: 'black',
-    flex: 1, // Mengambil sisa lebar
+    flex: 1,
     height: 40,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
   },
   buttonAdd: {
-    flexDirection: 'row', // Arrange children in a row
-    alignItems: 'center', // Center children vertically
-    backgroundColor: '#FFFFFF', // Background color
-    padding: 10, // Padding around the content
-    borderRadius: 5, // Border radius for rounded corners
-    borderWidth: 1, // Border width
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    paddingTop: 5,
+    borderRadius: 5,
     borderColor: '#09322D',
+  },
+  buttonAddField: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  selectedStyle: {
+    borderRadius: 5,
   },
 });
 
