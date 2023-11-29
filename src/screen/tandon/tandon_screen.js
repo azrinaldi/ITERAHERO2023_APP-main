@@ -15,7 +15,6 @@ const TandonScreen = props => {
   const navigate = useNavigation();
 
   const {dataListTandon} = useSelector(state => state.userReducer);
-  console.log('ini gambarnyaaa', dataListTandon.data);
   return (
     <View style={[styles.scroll]}>
       <View style={[stylesGlobal.surface, styles.scrollContainer]}>
