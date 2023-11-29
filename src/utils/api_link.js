@@ -36,3 +36,5 @@ export const resepPupuk = link + '/resep';
 export const apiSimpanResep = link + '/resep';
 
 export const apiPeracikan = link + '/peracikan';
+
+export const apiPenjadwalan = link + '/penjadwalan';

@@ -19,6 +19,7 @@ export const GET_FIRST_TANDON = 'GET_FIRST_TANDON';
 export const GET_AKTUATOR_TANDON_BY_ID = 'GET_AKTUATOR_TANDON_BY_ID';
 
 export const GET_RESEP_PUPUK = 'GET_RESEP_PUPUK';
+export const GET_JADWAL = 'GET_JADWAL';
 
 import {
   dashboardApi,
@@ -29,6 +30,7 @@ import {
   listTandon,
   AktuatorTandon,
   resepPupuk,
+  apiPenjadwalan,
 } from '../utils/api_link';
 
 // const navigate = useNavigation()
@@ -69,6 +71,11 @@ export const getApiDashboard = data => ({
 
 export const getResepPupuk = data => ({
   type: GET_RESEP_PUPUK,
+  data: data,
+});
+
+export const getJadwal = data => ({
+  type: GET_JADWAL,
   data: data,
 });
 
@@ -203,6 +210,23 @@ export const getFirstResepPupuk = token => {
         dispatch({
           type: GET_RESEP_PUPUK,
           payload: data,
+        });
+      });
+  };
+};
+
+export const getFirstJadwal = token => {
+  return async dispatch => {
+    return await axios
+      .get(apiPenjadwalan, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_JADWAL,
+          payload: data.data,
         });
       });
   };

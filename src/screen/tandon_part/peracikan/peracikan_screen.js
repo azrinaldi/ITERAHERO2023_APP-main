@@ -21,6 +21,7 @@ const PeracikanScreen = props => {
   const [Nama, onChangeNama] = React.useState('');
   const [Volume, onChangeVolumeValue] = React.useState('');
   const [isDropdownDisabled, setIsDropdownDisabled] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);
   const [isAddList, setIsAddList] = useState(false);
   const [selectedFormula, setSelectedFormula] = useState(null);
@@ -89,7 +90,6 @@ const PeracikanScreen = props => {
       .catch(err => {
         console.error(err);
       });
-    console.log('Meracik Resep: ', id, idTandon);
     getApi();
   };
 
@@ -127,9 +127,11 @@ const PeracikanScreen = props => {
     setValue(null);
     setSelectedFormula(null);
   };
+
   const handleAddPress = () => {
     setIsDropdownDisabled(true);
     setIsNameInputVisible(true);
+    setIsInputDisabled(true);
     setIsAddList(true);
     handleReset();
   };
@@ -137,6 +139,7 @@ const PeracikanScreen = props => {
   const handleDefault = () => {
     setIsDropdownDisabled(false);
     setIsNameInputVisible(false);
+    setIsInputDisabled(false);
     setIsAddList(false);
     handleReset();
   };
@@ -195,6 +198,7 @@ const PeracikanScreen = props => {
               onChangeText={onChangeNama}
               value={Nama}
               keyboardType="string"
+              editable={isInputDisabled}
             />
           </View>
         )}
@@ -205,6 +209,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangePHValue}
             value={phValue}
             keyboardType="numeric"
+            editable={isInputDisabled}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -214,6 +219,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangePPMValue}
             value={ppmValue}
             keyboardType="numeric"
+            editable={isInputDisabled}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -223,6 +229,7 @@ const PeracikanScreen = props => {
             onChangeText={onChangeVolumeValue}
             value={Volume}
             keyboardType="numeric"
+            editable={isInputDisabled}
           />
         </View>
         <View style={styles.buttonField}>

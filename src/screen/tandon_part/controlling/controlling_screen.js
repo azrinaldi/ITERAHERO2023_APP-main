@@ -63,8 +63,7 @@ const ControllingScreenTandon = props => {
               dataAktuatorTandonById.map(item => {
                 return (
                   <CardAktuatorTandon
-                  
-                    data={{ 
+                    data={{
                       id: item.id,
                       icon: item.icon.logo,
                       name: item.name,

@@ -14,6 +14,7 @@ import {
   GET_API_DASHBOARD,
   GET_FIRST_DASHBOARD,
   GET_RESEP_PUPUK,
+  GET_JADWAL,
 } from './action';
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   dataControllingByid: [],
 
   dataResepPupuk: [],
+  dataJadwal: [],
 };
 
 function userReducer(state = initialState, action) {
@@ -69,6 +71,9 @@ function userReducer(state = initialState, action) {
 
     case GET_RESEP_PUPUK:
       return {...state, dataResepPupuk: action.payload};
+
+    case GET_JADWAL:
+      return {...state, dataJadwal: action.payload};
     default:
       return state;
   }

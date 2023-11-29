@@ -5,7 +5,7 @@ import axios from 'axios';
 import {switchAkuatorTandon} from '../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CardAktuatorTandon = props => {
+const CardJadwalInfo = props => {
   const data = props.data;
   const [status, setStatus] = useState(data.status === 1);
 
@@ -85,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardAktuatorTandon;
+export default CardJadwalInfo;
