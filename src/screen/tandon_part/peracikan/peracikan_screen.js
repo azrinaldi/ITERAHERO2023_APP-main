@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getFirstResepPupuk} from '../../../redux/action';
 import stylesGlobal from '../../../utils/style_global';
 import {apiPeracikan, apiSimpanResep} from '../../../utils/api_link';
+import {setMenuTandon} from '../../../redux/action';
 
 const PeracikanScreen = props => {
   const idTandon = props.data.idData;
@@ -60,11 +61,12 @@ const PeracikanScreen = props => {
       )
       .then(response => {
         console.log('Formula berhasil disimpan :', response.data);
+        console.log('Simpan ', nama, ph, ppm, volume);
       })
       .catch(error => {
         console.error('Error menyimpan formula :', error);
       });
-    console.log('Simpan ', nama, ph, ppm, volume);
+
     getApi();
     handleDefault();
   };
@@ -75,7 +77,7 @@ const PeracikanScreen = props => {
         apiPeracikan,
         {
           resep: id,
-          idTandon,
+          id_tandon: idTandon,
         },
         {
           headers: {
@@ -90,7 +92,6 @@ const PeracikanScreen = props => {
       .catch(err => {
         console.error(err);
       });
-    getApi();
   };
 
   useEffect(() => {

@@ -30,7 +30,8 @@ export const listTandon = link + '/tandonUtama';
 export const AktuatorTandon = link + '/tandonUtama/';
 export const switchAkuatorTandon = link + '/kontrol';
 
-export const listSensor = link + '/logging';
+export const listSensor = link + '/tandonUtama/';
+export const valueSensor = link + '/logging';
 
 export const resepPupuk = link + '/resep';
 export const apiSimpanResep = link + '/resep';

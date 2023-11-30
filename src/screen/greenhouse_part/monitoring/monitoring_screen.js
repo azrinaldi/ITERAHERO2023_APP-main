@@ -32,7 +32,6 @@ const MonitoringScreenGH = props => {
     getApiById();
     return () => setIsloading(true);
   }, [menuMoCon]);
-  console.log(dataMonitoringByid);
 
   return (
     <>

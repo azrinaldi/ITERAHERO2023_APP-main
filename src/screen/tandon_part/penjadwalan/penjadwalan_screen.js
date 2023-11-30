@@ -54,8 +54,6 @@ const PenjadwalanScreen = props => {
     getApiById();
   }, []);
 
-  console.log('Data Aktuator Tandon:    ', dataJadwal);
-
   return (
     <View style={styles.container}>
       <ScrollView style={styles.formField}>
@@ -91,7 +89,7 @@ const PenjadwalanScreen = props => {
       </ScrollView>
       <View style={styles.buttonField}>
         <TouchableOpacity
-          onPress={() => navigate.navigate('FormPenjadwalanPage', {})}
+          // onPress={() => navigate.navigate('FormPenjadwalanPage', {})}
           style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
           <Text style={styles.buttonText}>Buat Jadwal</Text>
         </TouchableOpacity>

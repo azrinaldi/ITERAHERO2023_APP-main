@@ -15,6 +15,8 @@ import {
   GET_FIRST_DASHBOARD,
   GET_RESEP_PUPUK,
   GET_JADWAL,
+  GET_LIST_SENSOR,
+  GET_VALUE_SENSOR,
 } from './action';
 
 const initialState = {
@@ -35,6 +37,9 @@ const initialState = {
 
   dataResepPupuk: [],
   dataJadwal: [],
+
+  dataListSensor: [],
+  dataValueSensor: [],
 };
 
 function userReducer(state = initialState, action) {
@@ -74,6 +79,11 @@ function userReducer(state = initialState, action) {
 
     case GET_JADWAL:
       return {...state, dataJadwal: action.payload};
+
+    case GET_LIST_SENSOR:
+      return {...state, dataListSensor: action.payload};
+    case GET_VALUE_SENSOR:
+      return {...state, dataValueSensor: action.payload};
     default:
       return state;
   }

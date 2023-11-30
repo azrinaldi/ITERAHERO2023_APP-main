@@ -21,6 +21,9 @@ export const GET_AKTUATOR_TANDON_BY_ID = 'GET_AKTUATOR_TANDON_BY_ID';
 export const GET_RESEP_PUPUK = 'GET_RESEP_PUPUK';
 export const GET_JADWAL = 'GET_JADWAL';
 
+export const GET_LIST_SENSOR = 'GET_LIST_SENSOR';
+export const GET_VALUE_SENSOR = 'GET_VALUE_SENSOR';
+
 import {
   dashboardApi,
   listGreenHouse,
@@ -31,6 +34,8 @@ import {
   AktuatorTandon,
   resepPupuk,
   apiPenjadwalan,
+  valueSensor,
+  listSensor,
 } from '../utils/api_link';
 
 // const navigate = useNavigation()
@@ -76,6 +81,16 @@ export const getResepPupuk = data => ({
 
 export const getJadwal = data => ({
   type: GET_JADWAL,
+  data: data,
+});
+
+export const getListSensor = data => ({
+  type: GET_LIST_SENSOR,
+  data: data,
+});
+
+export const getValueSensor = data => ({
+  type: GET_VALUE_SENSOR,
   data: data,
 });
 
@@ -226,6 +241,40 @@ export const getFirstJadwal = token => {
       .then(({data}) => {
         dispatch({
           type: GET_JADWAL,
+          payload: data.data,
+        });
+      });
+  };
+};
+
+export const firstListSensor = (id, token) => {
+  return async dispatch => {
+    return await axios
+      .get(listSensor + id + '/sensor', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_LIST_SENSOR,
+          payload: data.data,
+        });
+      });
+  };
+};
+
+export const firstValueSensor = token => {
+  return async dispatch => {
+    return await axios
+      .get(valueSensor, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_VALUE_SENSOR,
           payload: data.data,
         });
       });

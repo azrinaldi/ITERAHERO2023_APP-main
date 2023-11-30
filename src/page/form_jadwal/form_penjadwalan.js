@@ -8,15 +8,14 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
+
 import styles from './form_penjadwalan_style';
 import stylesGlobal from '../../utils/style_global';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import {useSelector, useDispatch} from 'react-redux';
 import {Dropdown, MultiSelect} from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../component/loading';
-import {getFirstResepPupuk} from '../../redux/action';
 
 const FormPenjadwalanPage = ({route, navigation}) => {
   const [formulaValue, setFormulaValue] = useState(null);
@@ -24,14 +23,9 @@ const FormPenjadwalanPage = ({route, navigation}) => {
   const [greenhouseValue, setGreenhouseValue] = useState(null);
 
   const [isFormulaFocus, setIsFormulaFocus] = useState(false);
-  const [isHariFocus, setIsHariFocus] = useState(false);
   const [isGreenhouseFocus, setIsGreenhouseFocus] = useState(false);
   const [formulaLabel, setFormulaLabel] = useState(null);
-  const [hariLabel, setHariLabel] = useState(null);
   const [greenhouseLabel, setGreenhouseLabel] = useState(null);
-
-  const [waktuInputs, setWaktuInputs] = useState([{waktu: ''}]);
-
   const {dataResepPupuk} = useSelector(state => state.userReducer);
 
   const dispatch = useDispatch();
@@ -48,17 +42,6 @@ const FormPenjadwalanPage = ({route, navigation}) => {
       return (
         <Text style={[styles.labelDropdown, isFormulaFocus && {color: 'blue'}]}>
           Formula
-        </Text>
-      );
-    }
-    return null;
-  };
-
-  const renderHariLabel = () => {
-    if (hariLabel || isHariFocus) {
-      return (
-        <Text style={[styles.labelDropdown, isHariFocus && {color: 'blue'}]}>
-          Hari
         </Text>
       );
     }
@@ -102,37 +85,9 @@ const FormPenjadwalanPage = ({route, navigation}) => {
     {label: 'Wanayasa', value: 2},
   ];
 
-  const handleTambahWaktu = () => {
-    setWaktuInputs([...waktuInputs, {waktu: ''}]);
-  };
-
-  const handleWaktuInputChange = (index, text) => {
-    const updatedInputs = [...waktuInputs];
-    updatedInputs[index].waktu = text;
-    setWaktuInputs(updatedInputs);
-  };
-
-  const renderWaktuInputs = () => {
-    return waktuInputs.map((input, index) => (
-      <View style={styles.inputContainer} key={index}>
-        <Text style={styles.label}>Waktu</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="string"
-          value={input.waktu}
-          onChangeText={text => handleWaktuInputChange(index, text)}
-        />
-      </View>
-    ));
-  };
-  const handleDelete = () => {
-    if (waktuInputs.length > 0) {
-      // Remove the last waktu input only if there's more than one input
-      const updatedInputs = [...waktuInputs];
-      updatedInputs.pop();
-      setWaktuInputs(updatedInputs);
-    }
-  };
+  useEffect(() => {
+    getApiById();
+  }, []);
   return (
     <>
       <SafeAreaView style={{flex: 1}}>
@@ -189,7 +144,6 @@ const FormPenjadwalanPage = ({route, navigation}) => {
             </View>
           </View>
           <View style={styles.container}>
-            {renderHariLabel()}
             <MultiSelect
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
@@ -199,16 +153,13 @@ const FormPenjadwalanPage = ({route, navigation}) => {
               labelField="label"
               valueField="value"
               placeholder="Select item"
-              placeholder={!isHariFocus ? 'Pilih Hari' : '...'}
+              placeholder="Pilih Hari"
               value={hariValue}
               itemContainerStyle={{}}
               itemTextStyle={{color: 'black', fontSize: 14}}
-              onFocus={() => setIsHariFocus(true)}
-              onBlur={() => setIsHariFocus(false)}
               onChange={item => {
-                setHariLabel(item.label);
                 setHariValue(item);
-                setIsHariFocus(false);
+                // setIsHariFocus(false);
               }}
               selectedStyle={styles.selectedStyle}
             />

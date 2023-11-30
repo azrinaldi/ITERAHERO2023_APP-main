@@ -24,7 +24,6 @@ import Loading from '../../component/loading';
 
 const GreenHousePage = ({route, navigation}) => {
   const {id, name, image} = route.params;
-  console.log({id, name, image});
   const [isLoading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
