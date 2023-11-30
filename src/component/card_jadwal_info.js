@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, Image, Switch, Touchable} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, Switch, Touchable, TouchableOpacity } from 'react-native';
 import stylesGlobal from '../utils/style_global';
 import axios from 'axios';
-import {apiPenjadwalan, switchAkuatorTandon} from '../utils/api_link';
+import { apiPenjadwalan, switchAkuatorTandon } from '../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardJadwalInfo = props => {
@@ -14,7 +14,7 @@ const CardJadwalInfo = props => {
     axios
       .patch(
         apiPenjadwalan,
-        {id},
+        { id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,22 +33,38 @@ const CardJadwalInfo = props => {
 
   return (
     <>
-      <View style={styles.card}>
-        <View style={styles.titleAndIcon}>
-          <View style={stylesGlobal.space10} />
-          <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
-            {data.name}
-          </Text>
+      <View>
+        <View style={styles.card}>
+          <View style={styles.info}>
+            <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
+              {data.name}
+            </Text>
+            <Text style={[stylesGlobal.body3, stylesGlobal.primer]}>
+              {data.namaGreenhouse}
+            </Text>
+            <Text style={[stylesGlobal.header3, stylesGlobal.primer]}>
+              {data.durasi}{' Menit'}
+            </Text>
+          </View>
+          <View style={styles.waktu}>
+              <Text style={[stylesGlobal.header2, stylesGlobal.secondary]}>
+                {data.waktu}
+              </Text>
+              <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
+                {' WIB'}
+              </Text>
+          </View>
+          <View style={styles.buttonField}>
+            <Switch
+              trackColor={{ false: '#767577', true: '#D3D3D3' }}
+              thumbColor={status ? '#28a745' : '#f4f3f4'}
+              onValueChange={async () => {
+                await toggleSwitch(data.id);
+              }}
+              value={status}
+            />
+          </View>
         </View>
-        <Switch
-          trackColor={{false: '#767577', true: '#D3D3D3'}}
-          thumbColor={status ? '#28a745' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={async () => {
-            await toggleSwitch(data.id);
-          }}
-          value={status}
-        />
       </View>
     </>
   );
@@ -57,27 +73,32 @@ const CardJadwalInfo = props => {
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: 65,
-    backgroundColor: '#ffff',
+    backgroundColor: '#ffffff',
     borderRadius: 10,
     borderColor: '#171717',
     shadowOpacity: 1,
     elevation: 1,
     shadowRadius: 1,
     marginBottom: 10,
-    padding: 20,
-    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  info: {
+    width: '50%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  waktu: {
+    width: '30%',
+    paddingVertical: 10,
+    display: 'flex',
     flexDirection: 'row',
   },
-  titleAndIcon: {
-    flexDirection: 'row',
-  },
-  imageIcon: {
-    height: 24,
-    width: 24,
-    resizeMode: 'stretch',
-    justifyContent: 'center',
+  buttonField: {
+    width: '20%',
     alignItems: 'center',
+    padding: 10,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   ScrollView,
@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 
 import styles from './penjadwalan_style';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch, useSelector} from 'react-redux';
-import {getFirstJadwal} from '../../../redux/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFirstJadwal } from '../../../redux/action';
 import Loading from '../../../component/loading';
 import CardJadwalInfo from '../../../component/card_jadwal_info';
 
@@ -41,7 +41,7 @@ const PenjadwalanScreen = props => {
 
   const dispatch = useDispatch();
 
-  const {dataJadwal} = useSelector(state => state.userReducer);
+  const { dataJadwal } = useSelector(state => state.userReducer);
 
   const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
@@ -49,52 +49,46 @@ const PenjadwalanScreen = props => {
       setLoading(false);
     });
   };
-
+  console.log('Data Jadwal :',dataJadwal)
   useEffect(() => {
     getApiById();
   }, []);
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.formField}>
-        {dataJadwal != undefined && isLoading == false ? (
-          <>
-            <ScrollView
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }>
-              {dataJadwal != undefined ? (
-                dataJadwal.map(item => {
-                  return (
-                    <CardJadwalInfo
-                      data={{
-                        id: item.id,
-                        name: item.resep.nama,
-                        waktu: item.waktu,
-                        durasi: item.durasi,
-                        status: item.isActive,
-                        greenhouseId: item.greenhouseId,
-                      }}
-                    />
-                  );
-                })
-              ) : (
-                <Loading />
-              )}
-            </ScrollView>
-          </>
+      <ScrollView
+        style={styles.containerInfo}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+        {dataJadwal != undefined ? (
+          dataJadwal.map(item => {
+            return (
+              <CardJadwalInfo
+                data={{
+                  id: item.id,
+                  name: item.resep.nama,
+                  waktu: item.waktu,
+                  durasi: item.durasi,
+                  status: item.isActive,
+                  namaGreenhouse: item.greenhouse.name,
+
+                }}
+              />
+            );
+          })
         ) : (
           <Loading />
         )}
       </ScrollView>
-      <View style={styles.buttonField}>
+      <View style={styles.containerButton}>
         <TouchableOpacity
           // onPress={() => navigate.navigate('FormPenjadwalanPage', {})}
-          style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
+          style={[styles.button, { backgroundColor: '#09322D', width: '100%' }]}>
           <Text style={styles.buttonText}>Buat Jadwal</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View >
   );
 };
 
