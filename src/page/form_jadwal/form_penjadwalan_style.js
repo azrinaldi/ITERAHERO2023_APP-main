@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   card: {
-    marginVertical: 5,
     marginHorizontal: 10,
     padding: 10,
   },
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
-    width: '23%',
+    width: '19%',
   },
   input: {
     color: 'black',
@@ -100,12 +99,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   buttonAdd: {
-    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    paddingTop: 5,
-    borderRadius: 5,
-    borderColor: '#09322D',
+    backgroundColor: 'white',
+    borderColor: '#171717',
+    elevation: 2,
+    shadowOpacity: 5,
+    shadowRadius: 2,
+    borderRadius: 2,
   },
   buttonAddField: {
     flexDirection: 'row',
@@ -115,8 +115,23 @@ const styles = StyleSheet.create({
   selectedStyle: {
     borderRadius: 5,
   },
-  inputTime: {
-    color: 'black',
+  valueWaktu:{
+    // backgroundColor: 'red',
+    width: '30%',
+    marginVertical: 5,
+    marginHorizontal: 5,
+    padding: 5,
+    backgroundColor: 'white',
+    borderColor: '#171717',
+    elevation: 2,
+    shadowOpacity: 5,
+    shadowRadius: 2,
+    borderRadius: 10,
+  },
+  listContainer:{
+    display: 'flex',
+    flexWrap:'wrap',
+    flexDirection: 'row',
   },
 });
 
