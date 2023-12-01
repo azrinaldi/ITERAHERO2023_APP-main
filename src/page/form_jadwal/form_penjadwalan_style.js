@@ -2,16 +2,35 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
+  },
+  title: {
+    height: 50,
+    alignItems: 'center',
+    paddingTop: 15,
+  },
+  form: {
+    height: 500,
     borderRadius: 10,
     backgroundColor: 'white',
     borderColor: '#171717',
     elevation: 1,
     shadowOpacity: 1,
     shadowRadius: 1,
+    margin: 10,
+    paddingTop: 10,
+  },
+  buttonField: {
+    width: '100%',
+    height: 60,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  card: {
     marginVertical: 5,
     marginHorizontal: 10,
-    padding: 20,
-    justifyContent: 'space-between',
+    padding: 10,
   },
   button: {
     height: 40,
@@ -28,18 +47,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  buttonField: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    padding: 10,
-  },
   inputContainer: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 15,
   },
   dropdown: {
     height: 40,
@@ -71,29 +83,21 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-  },
   label: {
     color: 'black',
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
-    width: '20%', // Lebar label
+    width: '20%',
   },
   input: {
     color: 'black',
+    width: '100%',
     flex: 1,
     height: 40,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   buttonAdd: {
     flexDirection: 'row',
@@ -110,6 +114,9 @@ const styles = StyleSheet.create({
   },
   selectedStyle: {
     borderRadius: 5,
+  },
+  inputTime: {
+    color: 'black',
   },
 });
 

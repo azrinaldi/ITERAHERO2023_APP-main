@@ -23,7 +23,7 @@ const initialState = {
   menuMoCon: 'monitoring',
   menuGraRi: 'graphic',
   menuGreTa: 'greenhouse',
-  menuTandon: 'monitoring',
+  menuTandon: 'peracikan',
 
   dataListTandon: [],
   dataAktuatorTandonById: [],
