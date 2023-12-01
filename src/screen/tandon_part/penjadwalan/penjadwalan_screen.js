@@ -49,7 +49,6 @@ const PenjadwalanScreen = props => {
       setLoading(false);
     });
   };
-  console.log('Data Jadwal :', dataJadwal);
   useEffect(() => {
     getApiById();
   }, []);

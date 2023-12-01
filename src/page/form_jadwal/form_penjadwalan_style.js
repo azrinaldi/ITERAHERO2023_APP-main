@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
-    width: '20%',
+    width: '23%',
   },
   input: {
     color: 'black',

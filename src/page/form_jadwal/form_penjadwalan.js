@@ -21,29 +21,6 @@ import Loading from '../../component/loading';
 const FormPenjadwalanPage = ({route, navigation}) => {
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState(new Date());
-
-  const showTimePicker = () => {
-    setTimePickerVisible(true);
-  };
-
-  const hideTimePicker = () => {
-    setTimePickerVisible(false);
-  };
-
-  const handleTimeConfirm = time => {
-    setSelectedTime(time);
-    hideTimePicker();
-  };
-  const formatTime = date => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    const formattedHours = hours.toString().padStart(2, '0');
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-
-    return `${formattedHours}:${formattedMinutes}`;
-  };
-
   const [formulaValue, setFormulaValue] = useState(null);
   const [hariValue, setHariValue] = useState([]);
   const [greenhouseValue, setGreenhouseValue] = useState(null);
@@ -61,6 +38,19 @@ const FormPenjadwalanPage = ({route, navigation}) => {
       dispatch(getFirstResepPupuk(respons));
       setLoading(false);
     });
+  };
+
+  const showTimePicker = () => {
+    setTimePickerVisible(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisible(false);
+  };
+
+  const handleTimeConfirm = time => {
+    setSelectedTime(time);
+    hideTimePicker();
   };
 
   const renderFormulaLabel = () => {
@@ -152,14 +142,15 @@ const FormPenjadwalanPage = ({route, navigation}) => {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Waktu</Text>
               <TouchableOpacity onPress={showTimePicker} style={styles.input}>
-                <Text style={styles.inputTime}>{formatTime(selectedTime)}</Text>
+                <Text style={styles.inputTime}>
+                  {selectedTime.toLocaleTimeString()}
+                </Text>
               </TouchableOpacity>
               <DateTimePickerModal
                 isVisible={isTimePickerVisible}
                 mode="time"
                 onConfirm={handleTimeConfirm}
                 onCancel={hideTimePicker}
-                is24Hour
               />
             </View>
             <View style={styles.buttonAddField}>
