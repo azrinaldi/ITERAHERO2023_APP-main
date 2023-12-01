@@ -3,11 +3,30 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColo: 'grey',
   },
   title: {
     height: 50,
     alignItems: 'center',
-    paddingTop: 15,
+    padding: 5,
+  },
+  containerInput: {
+    marginHorizontal: 10,
+    marginVertical: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  inputWaktu:{
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  listContainer:{
+    display: 'flex',
+    flexWrap:'wrap',
+    flexDirection: 'row',
   },
   form: {
     height: 500,
@@ -27,10 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  card: {
-    marginHorizontal: 10,
-    padding: 10,
-  },
+  
   button: {
     height: 40,
     borderRadius: 8,
@@ -46,12 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  inputContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   dropdown: {
     height: 40,
     borderColor: 'black',
@@ -65,9 +75,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'white',
     left: 22,
-    top: 8,
+    top: -2,
     zIndex: 999,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     fontSize: 10,
   },
   placeholderStyle: {
@@ -99,13 +109,19 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   buttonAdd: {
+    width: '32%',
+    height: 40,
+    borderRadius: 5,
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: '#171717',
-    elevation: 2,
-    shadowOpacity: 5,
-    shadowRadius: 2,
-    borderRadius: 2,
+    backgroundColor: '#09322D',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  timePicker:{
+    width: '65%',
   },
   buttonAddField: {
     flexDirection: 'row',
@@ -120,19 +136,18 @@ const styles = StyleSheet.create({
     width: '30%',
     marginVertical: 5,
     marginHorizontal: 5,
-    padding: 5,
+    padding: 10,
     backgroundColor: 'white',
     borderColor: '#171717',
     elevation: 2,
     shadowOpacity: 5,
     shadowRadius: 2,
     borderRadius: 10,
-  },
-  listContainer:{
     display: 'flex',
-    flexWrap:'wrap',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+  
 });
 
 export default styles;

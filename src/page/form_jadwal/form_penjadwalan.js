@@ -12,7 +12,7 @@ import moment from 'moment';
 import 'moment/locale/id';
 import styles from './form_penjadwalan_style';
 import stylesGlobal from '../../utils/style_global';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,7 +26,7 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
   const [formulaValue, setFormulaValue] = useState(null);
   const [hariValue, setHariValue] = useState([]);
   const [greenhouseValue, setGreenhouseValue] = useState(null);
-
+  const [durasiValue, setDurasiValue] = useState('');
   const [isFormulaFocus, setIsFormulaFocus] = useState(false);
   const [isGreenhouseFocus, setIsGreenhouseFocus] = useState(false);
   const [formulaLabel, setFormulaLabel] = useState(null);
@@ -68,36 +68,23 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       prevWaktuList.filter((_, i) => i !== index)
     );
   };
-
-  const renderInputWaktu = () => {
-    return (
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Jadwal</Text>
-        <TouchableOpacity onPress={showTimePicker} style={styles.input}>
-          <Text style={stylesGlobal.primer}>{selectedTime}</Text>
-        </TouchableOpacity>
-        <DateTimePickerModal
-          isVisible={isTimePickerVisible}
-          mode="time"
-          onConfirm={handleTimeConfirm}
-          onCancel={hideTimePicker}
-        />
-        <View style={styles.buttonAdd}>
-          <TouchableOpacity onPress={handleTambah}>
-            <Icon name="add-to-list" size={23} color="#3DB35F" />
-          </TouchableOpacity>
-        </View>
-      </View >
-    );
+  const handleSimpan = () => {
+    console.log('Formula Value:', formulaValue);
+    console.log('Selected Time:', waktuList);
+    console.log('Durasi Value:', durasiValue);
+    console.log('Hari Value:', hariValue);
+    console.log('Greenhouse Value:', greenhouseValue);
   };
-
+  
   const renderWaktuFields = () => {
     return waktuList.map((waktu, index) => (
       <View key={index} style={styles.valueWaktu}>
-        <Text style={[stylesGlobal.body2, stylesGlobal.primer]}>Jadwal {index + 1}</Text>
-        <Text style={[stylesGlobal.secondaryVariant, stylesGlobal.header2]}>{waktu}</Text>
-        <TouchableOpacity onPress={() => handleHapus(index)}>
-          <Icon name="delete" size={23} color="#B00020" />
+        <View>
+          <Text style={[stylesGlobal.body2, stylesGlobal.primer]}>Jadwal {index + 1}</Text>
+          <Text style={[stylesGlobal.secondaryVariant, stylesGlobal.header2]}>{waktu}</Text>
+        </View>
+        <TouchableOpacity style={styles.close} onPress={() => handleHapus(index)}>
+          <Icon name="close" size={18} color="#B00020" />
         </TouchableOpacity>
       </View>
     ));
@@ -159,13 +146,13 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.title}>
-          <Text style={[stylesGlobal.primer, stylesGlobal.header1]}>
-            Buat Penjadwalan
-          </Text>
-        </View>
         <ScrollView style={styles.form}>
-          <View style={styles.card}>
+          <View style={styles.title}>
+            <Text style={[stylesGlobal.primer, stylesGlobal.header1]}>
+              Buat Penjadwalan
+            </Text>
+          </View>
+          <View style={styles.containerInput}>
             {renderFormulaLabel()}
             <Dropdown
               style={styles.dropdown}
@@ -190,18 +177,30 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
               }}
             />
           </View>
-          <View style={styles.card}>
-            {renderInputWaktu()}
-            <View style={styles.buttonAddField}>
-
+          <View style={styles.containerInput}>
+            <View style={styles.inputWaktu}>
+              <View style={styles.timePicker}>
+                <TouchableOpacity onPress={showTimePicker} style={styles.input}>
+                  <Text style={stylesGlobal.primer}>{selectedTime || '--:--'}</Text>
+                </TouchableOpacity>
+                <DateTimePickerModal
+                  isVisible={isTimePickerVisible}
+                  mode="time"
+                  onConfirm={handleTimeConfirm}
+                  onCancel={hideTimePicker}
+                />
+              </View>
+              <TouchableOpacity onPress={handleTambah} style={styles.buttonAdd}>
+                <Icon name="plus-square" size={23} color="#FFFFFF" />
+                <Text style={[stylesGlobal.surface, stylesGlobal.header3]}>Jadwal</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.listContainer}>
               {renderWaktuFields()}
             </View>
-
           </View>
-          <View style={styles.card}>
-            <View style={styles.inputContainer}>
+          <View style={styles.containerInput}>
+            <View style={styles.inputWaktu}>
               <Text style={styles.label}>Durasi</Text>
               <TextInput
                 style={styles.input}
@@ -209,10 +208,12 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
                 placeholder="Dalam menit"
                 placeholderTextColor={'grey'}
                 maxLength={2}
+                value={durasiValue}
+                onChangeText={text => setDurasiValue(text)}
               />
             </View>
           </View>
-          <View style={styles.card}>
+          <View style={styles.containerInput}>
             <MultiSelect
               style={styles.dropdown}
               placeholderStyle={styles.placeholderStyle}
@@ -232,7 +233,7 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
               selectedStyle={styles.selectedStyle}
             />
           </View>
-          <View style={styles.card}>
+          <View style={styles.containerInput}>
             {renderGreenhouseLabel()}
             <Dropdown
               style={styles.dropdown}
@@ -265,7 +266,7 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
             <Text style={styles.buttonText}>Batal</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={handleSimpan}
             style={[styles.button, { backgroundColor: '#09322D', width: '45%' }]}>
             <Text style={styles.buttonText}>Simpan</Text>
           </TouchableOpacity>
