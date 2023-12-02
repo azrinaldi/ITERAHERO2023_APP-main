@@ -36,7 +36,6 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
   const [greenhouseLabel, setGreenhouseLabel] = useState(null);
   const { dataResepPupuk, dataListGreenHouse } = useSelector(state => state.userReducer);
 
-  console.log(dataResepPupuk.data);
   const dispatch = useDispatch();
 
   const getApi = () => {
