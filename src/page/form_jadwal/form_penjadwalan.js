@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
+import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/id';
 import styles from './form_penjadwalan_style';
@@ -15,11 +16,13 @@ import stylesGlobal from '../../utils/style_global';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
+import { apiPenjadwalan } from '../../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Loading from '../../component/loading';
 
 const FormPenjadwalanPage = ({ route, navigation }) => {
+  const { idTandon } = route.params;
   const [isTimePickerVisible, setTimePickerVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState((''));
   const [waktuList, setWaktuList] = useState([]);
@@ -31,7 +34,8 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
   const [isGreenhouseFocus, setIsGreenhouseFocus] = useState(false);
   const [formulaLabel, setFormulaLabel] = useState(null);
   const [greenhouseLabel, setGreenhouseLabel] = useState(null);
-  const { dataResepPupuk } = useSelector(state => state.userReducer);
+  const { dataResepPupuk, dataListGreenHouse } = useSelector(state => state.userReducer);
+
 
   const dispatch = useDispatch();
 
@@ -68,14 +72,40 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       prevWaktuList.filter((_, i) => i !== index)
     );
   };
-  const handleSimpan = () => {
+  const handleSimpan = async() => {
+    var token = await AsyncStorage.getItem('token');
+    axios
+      .post(
+        apiPenjadwalan,
+        {
+          resep: formulaValue,
+          id_tandon: idTandon,
+          waktu: waktuList,
+          hari: hariValue,
+          durasi: durasiValue,
+          id_greenhouse: greenhouseValue,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then(response => {
+        console.log(response.data);
+        console.log("Berhasil Menyimpan")
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    console.log('ID Tandon:', idTandon);
     console.log('Formula Value:', formulaValue);
     console.log('Selected Time:', waktuList);
     console.log('Durasi Value:', durasiValue);
     console.log('Hari Value:', hariValue);
     console.log('Greenhouse Value:', greenhouseValue);
   };
-  
+
   const renderWaktuFields = () => {
     return waktuList.map((waktu, index) => (
       <View key={index} style={styles.valueWaktu}>
@@ -126,6 +156,13 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       }))
       : [];
 
+  const dataGreenhouse =
+    dataListGreenHouse.data !== undefined
+      ? dataListGreenHouse.data.map(item => ({
+        label: item.name,
+        value: item.id
+      })) : [];
+
   const dataHari = [
     { label: 'Senin', value: 1 },
     { label: 'Selasa', value: 2 },
@@ -134,10 +171,6 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
     { label: 'Jumat', value: 5 },
     { label: 'Sabtu', value: 6 },
     { label: 'Minggu', value: 0 },
-  ];
-  const dataGreenhouse = [
-    { label: 'Iterahero', value: 1 },
-    { label: 'Wanayasa', value: 2 },
   ];
 
   useEffect(() => {
