@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     margin: 10,
     paddingTop: 10,
+    paddingBottom: 10,
+    
   },
   buttonField: {
     width: '100%',

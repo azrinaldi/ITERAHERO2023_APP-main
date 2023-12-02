@@ -29,14 +29,14 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
   const [formulaValue, setFormulaValue] = useState(null);
   const [hariValue, setHariValue] = useState([]);
   const [greenhouseValue, setGreenhouseValue] = useState(null);
-  const [durasiValue, setDurasiValue] = useState('');
+  const [durasiValue, setDurasiValue] = useState(null);
   const [isFormulaFocus, setIsFormulaFocus] = useState(false);
   const [isGreenhouseFocus, setIsGreenhouseFocus] = useState(false);
   const [formulaLabel, setFormulaLabel] = useState(null);
   const [greenhouseLabel, setGreenhouseLabel] = useState(null);
   const { dataResepPupuk, dataListGreenHouse } = useSelector(state => state.userReducer);
 
-
+  console.log(dataResepPupuk.data);
   const dispatch = useDispatch();
 
   const getApi = () => {
@@ -72,7 +72,7 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       prevWaktuList.filter((_, i) => i !== index)
     );
   };
-  const handleSimpan = async() => {
+  const handleSimpan = async () => {
     var token = await AsyncStorage.getItem('token');
     axios
       .post(
@@ -93,7 +93,14 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       )
       .then(response => {
         console.log(response.data);
+        setFormulaValue(null);
+        setSelectedTime('');
+        setWaktuList([]);
+        setHariValue([]);
+        setDurasiValue('');
+        setGreenhouseValue(null);
         console.log("Berhasil Menyimpan")
+        
       })
       .catch(err => {
         console.error(err);
