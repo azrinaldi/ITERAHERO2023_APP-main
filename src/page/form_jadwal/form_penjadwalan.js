@@ -78,12 +78,12 @@ const FormPenjadwalanPage = ({ route, navigation }) => {
       .post(
         apiPenjadwalan,
         {
-          resep: formulaValue,
-          id_tandon: idTandon,
+          resep: parseInt(formulaValue),
+          id_tandon: parseInt(idTandon),
           waktu: waktuList,
           hari: hariValue,
-          durasi: durasiValue,
-          id_greenhouse: greenhouseValue,
+          durasi: parseInt(durasiValue),
+          id_greenhouse: parseInt(greenhouseValue),
         },
         {
           headers: {
