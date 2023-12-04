@@ -53,7 +53,6 @@ const PenjadwalanScreen = props => {
   useEffect(() => {
     getApiById();
   }, []);
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -64,16 +63,20 @@ const PenjadwalanScreen = props => {
         {dataJadwal != undefined ? (
           dataJadwal.map(item => {
             return (
-              <CardJadwalInfo
-                data={{
-                  id: item.id,
-                  name: item.resep.nama,
-                  waktu: item.waktu,
-                  durasi: item.durasi,
-                  status: item.isActive,
-                  namaGreenhouse: item.greenhouse.name,
-                }}
-              />
+              <>
+                {item.greenhouseId == id ? (
+                  <CardJadwalInfo
+                    data={{
+                      id: item.id,
+                      name: item.resep.nama,
+                      waktu: item.waktu,
+                      durasi: item.durasi,
+                      status: item.isActive,
+                      namaGreenhouse: item.greenhouse.name,
+                    }}
+                  />
+                ) : null}
+              </>
             );
           })
         ) : (
