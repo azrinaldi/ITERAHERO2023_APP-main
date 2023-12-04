@@ -81,8 +81,13 @@ const PenjadwalanScreen = props => {
       </ScrollView>
       <View style={styles.containerButton}>
         <TouchableOpacity
+<<<<<<< HEAD
           onPress={() => navigate.navigate('FormPenjadwalanPage', {})}
           style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
+=======
+          onPress={() => navigate.navigate('FormPenjadwalanPage', {idTandon: id})}
+          style={[styles.button, { backgroundColor: '#09322D', width: '100%' }]}>
+>>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
           <Text style={styles.buttonText}>Buat Jadwal</Text>
         </TouchableOpacity>
       </View>
