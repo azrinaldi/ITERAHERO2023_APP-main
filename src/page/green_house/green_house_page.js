@@ -69,14 +69,14 @@ const GreenHousePage = ({route, navigation}) => {
               <>
                 <BarMonitoring />
                 <View style={stylesGlobal.enter20} />
-                {/* <MonitoringScreenGH data={{idData: id}} /> */}
+                <MonitoringScreenGH data={{idData: id}} />
               </>
             ) : null}
             {menuMoCon === 'controlling' ? (
               <>
                 <BarControlling />
                 <View style={stylesGlobal.enter20} />
-                {/* <ControllingScreenGH data={{idData: id}} /> */}
+                <ControllingScreenGH data={{idData: id}} />
               </>
             ) : null}
           </View>

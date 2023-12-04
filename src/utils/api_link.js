@@ -27,10 +27,12 @@ export const nullCount = link + '/notification-update';
 
 export const listTandon = link + '/tandonUtama';
 
+export const AktuatorGreenhouse = link + '/greenhouse/';
 export const AktuatorTandon = link + '/tandonUtama/';
 export const switchAkuatorTandon = link + '/kontrol';
 
-export const listSensor = link + '/tandonUtama/';
+export const listSensorTandon = link + '/tandonUtama/';
+export const listSensorGreenhouse = link + '/greenhouse/';
 export const valueSensor = link + '/logging';
 
 export const resepPupuk = link + '/resep';

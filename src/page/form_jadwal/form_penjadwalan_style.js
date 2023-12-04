@@ -3,17 +3,11 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-<<<<<<< HEAD
-=======
     backgroundColo: 'grey',
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
   },
   title: {
     height: 50,
     alignItems: 'center',
-<<<<<<< HEAD
-    paddingTop: 15,
-=======
     padding: 5,
   },
   containerInput: {
@@ -22,18 +16,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
-  inputWaktu:{
+  inputWaktu: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  listContainer:{
+  listContainer: {
     display: 'flex',
-    flexWrap:'wrap',
+    flexWrap: 'wrap',
     flexDirection: 'row',
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
   },
   form: {
     height: 500,
@@ -45,23 +38,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     margin: 10,
     paddingTop: 10,
-<<<<<<< HEAD
-  },
-  buttonField: {
-    width: '100%',
-    height: 60,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  card: {
-    marginVertical: 5,
-    marginHorizontal: 10,
-    padding: 10,
-=======
     paddingBottom: 10,
-    
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
   },
   buttonField: {
     width: '100%',
@@ -70,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  
+
   button: {
     height: 40,
     borderRadius: 8,
@@ -86,15 +63,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-<<<<<<< HEAD
-  inputContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-=======
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
   dropdown: {
     height: 40,
     borderColor: 'black',
@@ -129,11 +97,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
-<<<<<<< HEAD
-    width: '23%',
-=======
     width: '19%',
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
   },
   input: {
     color: 'black',
@@ -157,7 +121,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
-  timePicker:{
+  timePicker: {
     width: '65%',
   },
   buttonAddField: {
@@ -168,12 +132,7 @@ const styles = StyleSheet.create({
   selectedStyle: {
     borderRadius: 5,
   },
-<<<<<<< HEAD
-  inputTime: {
-    color: 'black',
-  },
-=======
-  valueWaktu:{
+  valueWaktu: {
     // backgroundColor: 'red',
     width: '30%',
     marginVertical: 5,
@@ -189,8 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  
->>>>>>> f3cd5503517b5ff2ec22e4926018942714bcb65c
 });
 
 export default styles;

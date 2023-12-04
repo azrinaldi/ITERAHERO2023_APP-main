@@ -20,8 +20,9 @@ export const GET_AKTUATOR_TANDON_BY_ID = 'GET_AKTUATOR_TANDON_BY_ID';
 
 export const GET_RESEP_PUPUK = 'GET_RESEP_PUPUK';
 export const GET_JADWAL = 'GET_JADWAL';
-
-export const GET_LIST_SENSOR = 'GET_LIST_SENSOR';
+export const GET_LIST_AKTUATOR_GREENHOUSE = 'GET_LIST_AKTUATOR_GREENHOUSE';
+export const GET_LIST_SENSOR_GREENHOUSE = 'GET_LIST_SENSOR_GREENHOUSE';
+export const GET_LIST_SENSOR_TANDON = 'GET_LIST_SENSOR_TANDON';
 export const GET_VALUE_SENSOR = 'GET_VALUE_SENSOR';
 
 import {
@@ -35,7 +36,9 @@ import {
   resepPupuk,
   apiPenjadwalan,
   valueSensor,
-  listSensor,
+  listSensorGreenhouse,
+  listSensorTandon,
+  AktuatorGreenhouse,
 } from '../utils/api_link';
 
 // const navigate = useNavigation()
@@ -84,8 +87,18 @@ export const getJadwal = data => ({
   data: data,
 });
 
+export const getListAktuatorGreenhouse = data => ({
+  type: GET_LIST_AKTUATOR_GREENHOUSE,
+  data: data,
+});
+
 export const getListSensor = data => ({
-  type: GET_LIST_SENSOR,
+  type: GET_LIST_SENSOR_TANDON,
+  data: data,
+});
+
+export const getListSensorGreenhouse = data => ({
+  type: GET_LIST_SENSOR_GREENHOUSE,
   data: data,
 });
 
@@ -246,18 +259,51 @@ export const getFirstJadwal = token => {
       });
   };
 };
-
-export const firstListSensor = (id, token) => {
+export const firstListSensorGreenhouse = (id, token) => {
   return async dispatch => {
     return await axios
-      .get(listSensor + id + '/sensor', {
+      .get(listSensorGreenhouse + id + '/sensor', {
         headers: {
           Authorization: 'Bearer ' + token,
         },
       })
       .then(({data}) => {
         dispatch({
-          type: GET_LIST_SENSOR,
+          type: GET_LIST_SENSOR_GREENHOUSE,
+          payload: data.data,
+        });
+      });
+  };
+};
+
+export const firstListAktuatorGreenhouse = (id, token) => {
+  return async dispatch => {
+    return await axios
+      .get(AktuatorGreenhouse + id + '/actuator', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_LIST_AKTUATOR_GREENHOUSE,
+          payload: data.data,
+        });
+      });
+  };
+};
+
+export const firstListSensorTandon = (id, token) => {
+  return async dispatch => {
+    return await axios
+      .get(listSensorTandon + id + '/sensor', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then(({data}) => {
+        dispatch({
+          type: GET_LIST_SENSOR_TANDON,
           payload: data.data,
         });
       });

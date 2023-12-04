@@ -15,64 +15,62 @@ import {convertCreateAt} from '../utils/moment';
 
 const DegreeMonitoring = props => {
   const navigate = useNavigation();
-
-  const [value, setValue] = useState(-1);
+  const data = props.data;
+  const value = data.value;
   const [refresh, setRefresh] = useState(true);
   const [first, checkFirst] = useState(true);
   const [date, setDate] = useState('');
-  const [status, setStatus] = useState('offline');
+  // const [status, setStatus] = useState('offline');
 
-  let data = props.data;
+  // const onRefreshSatu = () => {
+  //   setTimeout(() => {
+  //     axios.get(sensorBroker + data.id).then(response => {
+  //       setStatus(response.data.data[0].status);
+  //       setValue(response.data.data[0].value);
+  //       setDate(() => convertCreateAt(response.data.data[0].updatedAt));
+  //       setRefresh(true);
+  //     });
+  //   }, 10000);
+  // };
 
-  const onRefreshSatu = () => {
-    setTimeout(() => {
-      axios.get(sensorBroker + data.id).then(response => {
-        setStatus(response.data.data[0].status);
-        setValue(response.data.data[0].value);
-        setDate(() => convertCreateAt(response.data.data[0].updatedAt));
-        setRefresh(true);
-      });
-    }, 10000);
-  };
+  // const onRefreshDua = () => {
+  //   setTimeout(() => {
+  //     axios.get(sensorBroker + data.id).then(response => {
+  //       setStatus(response.data.data[0].status);
+  //       setValue(response.data.data[0].value);
+  //       setDate(() => convertCreateAt(response.data.data[0].updatedAt));
+  //       setRefresh(false);
+  //     });
+  //   }, 10000);
+  // };
 
-  const onRefreshDua = () => {
-    setTimeout(() => {
-      axios.get(sensorBroker + data.id).then(response => {
-        setStatus(response.data.data[0].status);
-        setValue(response.data.data[0].value);
-        setDate(() => convertCreateAt(response.data.data[0].updatedAt));
-        setRefresh(false);
-      });
-    }, 10000);
-  };
+  // const getDataApiWebBroker = () => {
+  //   axios.get(sensorBroker + data.id).then(response => {
+  //     setStatus(response.data.data[0].status);
+  //     setValue(response.data.data[0].value);
+  //     setDate(() => convertCreateAt(response.data.data[0].updatedAt));
+  //     setRefresh(false);
+  //   });
+  // };
 
-  const getDataApiWebBroker = () => {
-    axios.get(sensorBroker + data.id).then(response => {
-      setStatus(response.data.data[0].status);
-      setValue(response.data.data[0].value);
-      setDate(() => convertCreateAt(response.data.data[0].updatedAt));
-      setRefresh(false);
-    });
-  };
+  // const onRefreshFinal = () => {
+  //   if (refresh == false) {
+  //     onRefreshSatu();
+  //   }
+  //   if (refresh == true) {
+  //     onRefreshDua();
+  //   }
+  // };
 
-  const onRefreshFinal = () => {
-    if (refresh == false) {
-      onRefreshSatu();
-    }
-    if (refresh == true) {
-      onRefreshDua();
-    }
-  };
+  // useEffect(() => {
+  //   if (first == true) {
+  //     getDataApiWebBroker();
+  //   } else {
+  //     onRefreshFinal();
+  //   }
 
-  useEffect(() => {
-    if (first == true) {
-      getDataApiWebBroker();
-    } else {
-      onRefreshFinal();
-    }
-
-    return () => checkFirst(false);
-  }, [refresh, first]);
+  //   return () => checkFirst(false);
+  // }, [refresh, first]);
 
   return (
     <TouchableOpacity
@@ -125,7 +123,7 @@ const DegreeMonitoring = props => {
             <Text style={[stylesGlobal.caption, stylesGlobal.primer]}>
               {'Status : '}
             </Text>
-            {status == 'online' ? (
+            {data.status ? (
               <Text style={[stylesGlobal.caption, stylesGlobal.secondary]}>
                 online
               </Text>
@@ -135,7 +133,7 @@ const DegreeMonitoring = props => {
               </Text>
             )}
           </View>
-          <Text style={stylesGlobal.caption}>{date}</Text>
+          {/* <Text style={stylesGlobal.caption}>{date}</Text> */}
         </View>
       </View>
     </TouchableOpacity>

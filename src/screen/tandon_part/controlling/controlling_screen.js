@@ -45,6 +45,7 @@ const ControllingScreenTandon = props => {
     });
   };
 
+  console.log('Aktuator: ', dataAktuatorTandonById);
   useEffect(() => {
     getApiById();
   }, [menuTandon]);
@@ -63,9 +64,9 @@ const ControllingScreenTandon = props => {
                   <CardAktuatorTandon
                     data={{
                       id: item.id,
-                      icon: item.icon.logo,
+                      icon: item.category.logo,
                       name: item.name,
-                      color: item.icon.color,
+                      color: item.category.color,
                       updated_at: item.updated_at,
                       status: item.status,
                     }}

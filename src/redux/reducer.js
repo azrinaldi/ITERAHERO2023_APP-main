@@ -15,8 +15,10 @@ import {
   GET_FIRST_DASHBOARD,
   GET_RESEP_PUPUK,
   GET_JADWAL,
-  GET_LIST_SENSOR,
+  GET_LIST_SENSOR_TANDON,
   GET_VALUE_SENSOR,
+  GET_LIST_SENSOR_GREENHOUSE,
+  GET_LIST_AKTUATOR_GREENHOUSE,
 } from './action';
 
 const initialState = {
@@ -37,8 +39,9 @@ const initialState = {
 
   dataResepPupuk: [],
   dataJadwal: [],
-
-  dataListSensor: [],
+  dataListAktuatorGreenhouse: [],
+  dataListSensorGreenhouse: [],
+  dataListSensorTandon: [],
   dataValueSensor: [],
 };
 
@@ -66,24 +69,26 @@ function userReducer(state = initialState, action) {
       return {...state, dataListGreenHouse: action.payload};
     case GET_FIRST_DASHBOARD:
       return {...state, dataDashboard: action.payload};
-
     case GET_FIRST_TANDON:
       return {...state, dataListTandon: action.payload};
     case GET_API_LIST_TANDON:
       return {...state, dataListTandon: action.data};
     case GET_AKTUATOR_TANDON_BY_ID:
       return {...state, dataAktuatorTandonById: action.payload};
-
     case GET_RESEP_PUPUK:
       return {...state, dataResepPupuk: action.payload};
-
     case GET_JADWAL:
       return {...state, dataJadwal: action.payload};
-
-    case GET_LIST_SENSOR:
-      return {...state, dataListSensor: action.payload};
+    case GET_LIST_SENSOR_GREENHOUSE:
+      return {...state, dataListSensorGreenhouse: action.payload};
+    case GET_LIST_SENSOR_TANDON:
+      return {...state, dataListSensorTandon: action.payload};
     case GET_VALUE_SENSOR:
       return {...state, dataValueSensor: action.payload};
+    case GET_LIST_SENSOR_GREENHOUSE:
+      return {...state, dataListSensorGreenhouse: action.payload};
+    case GET_LIST_AKTUATOR_GREENHOUSE:
+      return {...state, dataListAktuatorGreenhouse: action.payload};
     default:
       return state;
   }
