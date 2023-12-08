@@ -61,15 +61,14 @@ const PeracikanScreen = props => {
       )
       .then(response => {
         console.log('Formula berhasil disimpan :', response.data);
-        console.log('Simpan ', nama, ph, ppm, volume);
       })
       .catch(error => {
         console.error('Error menyimpan formula :', error);
       });
-
     getApi();
     handleDefault();
   };
+
   const handleRacik = async (id, idTandon) => {
     var token = await AsyncStorage.getItem('token');
     axios

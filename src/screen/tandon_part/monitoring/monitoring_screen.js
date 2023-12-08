@@ -33,8 +33,6 @@ const MonitoringScreenTandon = props => {
       setLoading(false);
     });
   }, []);
-  console.log('List Sensor: ', dataListSensorTandon);
-  console.log('Value Sensor', dataValueSensor);
 
   const {dataListSensorTandon, dataValueSensor, menuTandon} = useSelector(
     state => state.userReducer,

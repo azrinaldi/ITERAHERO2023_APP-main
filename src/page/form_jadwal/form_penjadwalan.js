@@ -105,12 +105,6 @@ const FormPenjadwalanPage = ({route, navigation}) => {
       .catch(err => {
         console.error(err);
       });
-    console.log('ID Tandon:', idTandon);
-    console.log('Formula Value:', formulaValue);
-    console.log('Selected Time:', waktuList);
-    console.log('Durasi Value:', durasiValue);
-    console.log('Hari Value:', hariValue);
-    console.log('Greenhouse Value:', greenhouseValue);
   };
 
   const renderWaktuFields = () => {
