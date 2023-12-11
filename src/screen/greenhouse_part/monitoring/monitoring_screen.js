@@ -20,37 +20,53 @@ const MonitoringScreenGH = props => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const [trigger, setTrigger] = useState(true);
+
+  const fetchSensorData = useCallback(async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      dispatch(firstValueSensor(token));
+    } catch (error) {
+      console.error('Error fetching sensor data:', error);
+    }
+  }, [dispatch]);
 
   const onRefresh = useCallback(() => {
     setLoading(true);
     setRefreshing(true);
     AsyncStorage.getItem('token').then(respons => {
       dispatch(firstListSensorGreenhouse(id, respons));
-      dispatch(firstValueSensor(respons));
+      fetchSensorData(); // Fetch real-time sensor data
     });
     wait(3000).then(() => {
       setRefreshing(false);
       setLoading(false);
     });
-  }, []);
+  }, [dispatch, id, fetchSensorData]);
 
-  const {dataListSensorGreenhouse, dataValueSensor, menuMocon} = useSelector(
+  const {dataListSensorGreenhouse, dataValueSensor, menuMoCon} = useSelector(
     state => state.userReducer,
   );
 
-  const getApiById = () => {
+  const getApiById = useCallback(() => {
     AsyncStorage.getItem('token').then(respons => {
       dispatch(firstListSensorGreenhouse(id, respons));
-      dispatch(firstValueSensor(respons));
+      fetchSensorData(); // Fetch real-time sensor data
       setLoading(false);
     });
-  };
+  }, [dispatch, id, fetchSensorData]);
 
   useEffect(() => {
     getApiById();
-    setTimeout(() => setTrigger(!trigger), 3000);
-  }, [menuMocon, trigger]);
+
+    // Set up interval to fetch real-time sensor data every 30 seconds (adjust as needed)
+    const intervalId = setInterval(() => {
+      fetchSensorData();
+    }, 3000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [menuMoCon, getApiById, fetchSensorData]);
+
   return (
     <>
       <View style={{height: '71%', width: '100%'}}>

@@ -48,22 +48,24 @@ const GreenHousePage = ({route, navigation}) => {
       {!isLoading && dataGreenHouseById.status === 'success' ? (
         <SafeAreaView style={[stylesGlobal.surface, {flex: 1}]}>
           <StatusBar animated={true} backgroundColor={'#09322D'} />
-          <ImageBackground
-            resizeMode="cover"
-            source={{uri: image}}
-            style={styles.container}>
-            <View style={styles.imageBackgroundPlus}>
-              <TouchableOpacity
-                style={styles.backView}
-                onPress={() => navigation.goBack()}>
-                <Icon name="arrow-back" size={24} color="#ffff" />
-                <View style={stylesGlobal.space10} />
-                <Text style={[stylesGlobal.header2, {color: '#ffff'}]}>
-                  {name}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
+          <View style={styles.header}>
+            <ImageBackground
+              resizeMode="cover"
+              source={{uri: image}}
+              style={styles.container}>
+              <View style={styles.imageBackgroundPlus}>
+                <TouchableOpacity
+                  style={styles.backView}
+                  onPress={() => navigation.goBack()}>
+                  <Icon name="arrow-back" size={24} color="#ffff" />
+                  <View style={stylesGlobal.space10} />
+                  <Text style={[stylesGlobal.header2, {color: '#ffff'}]}>
+                    {name}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
+          </View>
           <View style={styles.monitoringAndControlling}>
             {menuMoCon === 'monitoring' ? (
               <>
