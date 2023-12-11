@@ -33,7 +33,7 @@ export const switchAkuatorTandon = link + '/kontrol';
 
 export const listSensorTandon = link + '/tandonUtama/';
 export const listSensorGreenhouse = link + '/greenhouse/';
-export const valueSensor = link + '/logging';
+export const valueSensor = link + '/logging/sensor';
 
 export const resepPupuk = link + '/resep';
 export const apiSimpanResep = link + '/resep';
