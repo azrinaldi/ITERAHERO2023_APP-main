@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   ScrollView,
@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 
 import styles from './penjadwalan_style';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch, useSelector } from 'react-redux';
-import { getFirstJadwal } from '../../../redux/action';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFirstJadwal} from '../../../redux/action';
 import Loading from '../../../component/loading';
 import CardJadwalInfo from '../../../component/card_jadwal_info';
 
@@ -41,7 +41,7 @@ const PenjadwalanScreen = props => {
 
   const dispatch = useDispatch();
 
-  const { dataJadwal } = useSelector(state => state.userReducer);
+  const {dataJadwal} = useSelector(state => state.userReducer);
 
   const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
@@ -49,11 +49,10 @@ const PenjadwalanScreen = props => {
       setLoading(false);
     });
   };
-  console.log('Data Jadwal :',dataJadwal)
+  console.log('Data Jadwal :', dataJadwal);
   useEffect(() => {
     getApiById();
   }, []);
-
   return (
     <View style={styles.container}>
       <ScrollView
@@ -64,17 +63,20 @@ const PenjadwalanScreen = props => {
         {dataJadwal != undefined ? (
           dataJadwal.map(item => {
             return (
-              <CardJadwalInfo
-                data={{
-                  id: item.id,
-                  name: item.resep.nama,
-                  waktu: item.waktu,
-                  durasi: item.durasi,
-                  status: item.isActive,
-                  namaGreenhouse: item.greenhouse.name,
-
-                }}
-              />
+              <>
+                {item.greenhouseId == id ? (
+                  <CardJadwalInfo
+                    data={{
+                      id: item.id,
+                      name: item.resep.nama,
+                      waktu: item.waktu,
+                      durasi: item.durasi,
+                      status: item.isActive,
+                      namaGreenhouse: item.greenhouse.name,
+                    }}
+                  />
+                ) : null}
+              </>
             );
           })
         ) : (
@@ -83,12 +85,14 @@ const PenjadwalanScreen = props => {
       </ScrollView>
       <View style={styles.containerButton}>
         <TouchableOpacity
-          onPress={() => navigate.navigate('FormPenjadwalanPage', {idTandon: id})}
-          style={[styles.button, { backgroundColor: '#09322D', width: '100%' }]}>
+          onPress={() =>
+            navigate.navigate('FormPenjadwalanPage', {idTandon: id})
+          }
+          style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
           <Text style={styles.buttonText}>Buat Jadwal</Text>
         </TouchableOpacity>
       </View>
-    </View >
+    </View>
   );
 };
 

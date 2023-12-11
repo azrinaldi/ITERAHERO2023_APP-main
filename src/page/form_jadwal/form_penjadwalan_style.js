@@ -16,16 +16,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
-  inputWaktu:{
+  inputWaktu: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  listContainer:{
+  listContainer: {
     display: 'flex',
-    flexWrap:'wrap',
+    flexWrap: 'wrap',
     flexDirection: 'row',
   },
   form: {
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     margin: 10,
     paddingTop: 10,
     paddingBottom: 10,
-    
   },
   buttonField: {
     width: '100%',
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  
+
   button: {
     height: 40,
     borderRadius: 8,
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
-  timePicker:{
+  timePicker: {
     width: '65%',
   },
   buttonAddField: {
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
   selectedStyle: {
     borderRadius: 5,
   },
-  valueWaktu:{
+  valueWaktu: {
     // backgroundColor: 'red',
     width: '30%',
     marginVertical: 5,
@@ -149,7 +148,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  
 });
 
 export default styles;

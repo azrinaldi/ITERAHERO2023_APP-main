@@ -4,7 +4,7 @@ import styles from './monitoring_style';
 import stylesGlobal from '../../../utils/style_global';
 import {ScrollView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {firstListSensor, firstValueSensor} from '../../../redux/action';
+import {firstListSensorTandon, firstValueSensor} from '../../../redux/action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MonitoringScreenTandon = props => {
@@ -25,7 +25,7 @@ const MonitoringScreenTandon = props => {
     setLoading(true);
     setRefreshing(true);
     AsyncStorage.getItem('token').then(respons => {
-      dispatch(firstListSensor(id, respons));
+      dispatch(firstListSensorTandon(id, respons));
       dispatch(firstValueSensor(respons));
     });
     wait(3000).then(() => {
@@ -34,13 +34,13 @@ const MonitoringScreenTandon = props => {
     });
   }, []);
 
-  const {dataListSensor, dataValueSensor, menuTandon} = useSelector(
+  const {dataListSensorTandon, dataValueSensor, menuTandon} = useSelector(
     state => state.userReducer,
   );
 
   const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
-      dispatch(firstListSensor(id, respons));
+      dispatch(firstListSensorTandon(id, respons));
       dispatch(firstValueSensor(respons));
       setLoading(false);
     });
@@ -48,7 +48,7 @@ const MonitoringScreenTandon = props => {
 
   useEffect(() => {
     getApiById();
-    setTimeout(() => setTrigger(!trigger), 200);
+    setTimeout(() => setTrigger(!trigger), 3000);
   }, [menuTandon, trigger]);
   return (
     <ScrollView>
@@ -117,10 +117,11 @@ const MonitoringScreenTandon = props => {
               </View>
             </View>
             <View style={styles.sensor}>
-              {dataListSensor.map((item, index) => {
+              {dataListSensorTandon.map((item, index) => {
                 const matchedData = dataValueSensor.find(
                   obj => obj.channel === item.channel || obj.gpio === item.GPIO,
                 );
+                console.log('Mathced Data: ', matchedData);
                 const sensorValue = matchedData ? matchedData.nilai : null;
                 return (
                   <View style={styles.cardSensor}>

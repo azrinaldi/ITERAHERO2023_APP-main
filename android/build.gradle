@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 31
         targetSdkVersion = 31
-
+        kotlinVersion = "1.9.0"
         googlePlayServicesVersion = "+" // default: "+"
         firebaseMessagingVersion = "21.1.0" // default: "21.1.0"
 
@@ -22,11 +22,13 @@ buildscript {
         google()
         mavenCentral()
     }
+
     dependencies {
-        classpath("com.android.tools.build:gradle:7.2.1")
-        classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("de.undercouch:gradle-download-task:5.0.1")
-        classpath 'com.google.gms:google-services:4.3.13'
+        classpath "com.android.tools.build:gradle:7.3.0" 
+        classpath "com.facebook.react:react-native-gradle-plugin" 
+        classpath "de.undercouch:gradle-download-task:5.0.1"
+        classpath 'com.google.gms:google-services:4.4.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         // NOTE: Do not place com.monitoringiterahrroyour application dependencies here; they belong
         // in the individual module build.gradle files
     }
