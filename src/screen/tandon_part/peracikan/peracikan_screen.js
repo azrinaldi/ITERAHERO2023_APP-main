@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import Dropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 
