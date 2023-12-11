@@ -49,7 +49,7 @@ const MonitoringScreenGH = props => {
 
   useEffect(() => {
     getApiById();
-    setTimeout(() => setTrigger(!trigger), 200);
+    setTimeout(() => setTrigger(!trigger), 3000);
   }, [menuMocon, trigger]);
   return (
     <>

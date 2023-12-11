@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
-  containerInfo:{
+  containerInfo: {
     height: 370,
     width: '100%',
     display: 'flex',
     paddingHorizontal: 10,
   },
-  containerButton:{
+  containerButton: {
     height: 60,
     width: '100%',
   },
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  container: {},
 });
 
 export default styles;

@@ -48,8 +48,9 @@ const MonitoringScreenTandon = props => {
 
   useEffect(() => {
     getApiById();
-    setTimeout(() => setTrigger(!trigger), 200);
+    setTimeout(() => setTrigger(!trigger), 3000);
   }, [menuTandon, trigger]);
+
   return (
     <ScrollView>
       <View style={{height: 600}}>
