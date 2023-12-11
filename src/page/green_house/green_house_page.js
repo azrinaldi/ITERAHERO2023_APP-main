@@ -43,6 +43,7 @@ const GreenHousePage = ({route, navigation}) => {
     getApiById();
     return () => setLoading(true);
   }, []);
+  console.log('ini data GH: ',dataGreenHouseById.data)
   return (
     <>
       {!isLoading && dataGreenHouseById.status === 'success' ? (
@@ -69,7 +70,7 @@ const GreenHousePage = ({route, navigation}) => {
               <>
                 <BarMonitoring />
                 <View style={stylesGlobal.enter20} />
-                {/* <MonitoringScreenGH data={{idData: id}} /> */}
+                <MonitoringScreenGH data={{idData: id}} />
               </>
             ) : null}
             {menuMoCon === 'controlling' ? (

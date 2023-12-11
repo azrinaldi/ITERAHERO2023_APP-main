@@ -33,6 +33,8 @@ const MonitoringScreenGH = props => {
     return () => setIsloading(true);
   }, [menuMoCon]);
 
+  console.log("Ini data sensor",dataMonitoringByid)
+
   return (
     <>
       {dataMonitoringByid != undefined && isLoading == false ? (
