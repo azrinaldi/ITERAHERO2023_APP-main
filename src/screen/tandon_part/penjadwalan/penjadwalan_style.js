@@ -2,19 +2,18 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: '70%',
+    height: '71%',
     width: '100%',
     display: 'flex',
+    justifyContent: 'space-between',
     flexDirection: 'column',
   },
   containerInfo: {
-    height: 370,
     width: '100%',
     display: 'flex',
     paddingHorizontal: 10,
   },
   containerButton: {
-    height: 60,
     width: '100%',
   },
   card: {
