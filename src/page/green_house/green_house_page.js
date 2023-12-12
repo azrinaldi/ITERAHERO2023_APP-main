@@ -43,7 +43,7 @@ const GreenHousePage = ({route, navigation}) => {
     getApiById();
     return () => setLoading(true);
   }, []);
-  console.log('ini data GH: ',dataGreenHouseById.data)
+  console.log('ini data GH: ', dataGreenHouseById.data);
   return (
     <>
       {!isLoading && dataGreenHouseById.status === 'success' ? (

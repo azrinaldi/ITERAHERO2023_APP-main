@@ -41,7 +41,7 @@ const PenjadwalanScreen = props => {
 
   const dispatch = useDispatch();
 
-  const {dataJadwal} = useSelector(state => state.userReducer);
+  const {dataJadwal, menuTandon} = useSelector(state => state.userReducer);
 
   const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
@@ -52,7 +52,7 @@ const PenjadwalanScreen = props => {
   console.log('Data Jadwal :', dataJadwal);
   useEffect(() => {
     getApiById();
-  }, []);
+  }, [menuTandon]);
   return (
     <View style={styles.container}>
       <ScrollView

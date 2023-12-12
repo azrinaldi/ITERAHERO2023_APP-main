@@ -121,7 +121,6 @@ const MonitoringScreenTandon = props => {
                 const matchedData = dataValueSensor.find(
                   obj => obj.channel === item.channel || obj.gpio === item.GPIO,
                 );
-                console.log('Mathced Data: ', matchedData);
                 const sensorValue = matchedData ? matchedData.nilai : null;
                 return (
                   <View style={styles.cardSensor}>

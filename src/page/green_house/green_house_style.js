@@ -2,13 +2,9 @@ import {BackHandler, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    height: 230,
     width: '100%',
     marginBottom: 10,
-  },
-  header: {
-    height: '25%',
-    backgroundColor: 'black',
   },
   imageBackgroundPlus: {
     backgroundColor: '( rgba(0, 0, 0, 0.4)',
@@ -22,7 +18,6 @@ const styles = StyleSheet.create({
   },
   monitoringAndControlling: {
     width: '100%',
-    height: '75%',
     paddingHorizontal: 10,
   },
 });

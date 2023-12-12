@@ -47,11 +47,10 @@ const ControllingScreenGH = props => {
       setLoading(false);
     });
   };
-  console.log('Ini Kontrol', dataListAktuatorGreenhouse);
 
   useEffect(() => {
     getApiById();
-  }, [menuMoCon]);
+  }, []);
 
   return (
     <>

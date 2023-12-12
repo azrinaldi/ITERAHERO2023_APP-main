@@ -20,54 +20,37 @@ const MonitoringScreenGH = props => {
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setLoading] = useState(true);
-
-  const fetchSensorData = useCallback(async () => {
-    try {
-      const token = await AsyncStorage.getItem('token');
-      dispatch(firstValueSensor(token));
-    } catch (error) {
-      console.error('Error fetching sensor data:', error);
-    }
-  }, [dispatch]);
+  const [trigger, setTrigger] = useState(true);
 
   const onRefresh = useCallback(() => {
     setLoading(true);
     setRefreshing(true);
     AsyncStorage.getItem('token').then(respons => {
       dispatch(firstListSensorGreenhouse(id, respons));
-      fetchSensorData(); // Fetch real-time sensor data
+      dispatch(firstValueSensor(respons));
     });
     wait(3000).then(() => {
       setRefreshing(false);
       setLoading(false);
     });
-  }, [dispatch, id, fetchSensorData]);
+  }, []);
 
-  const {dataListSensorGreenhouse, dataValueSensor, menuMoCon} = useSelector(
+  const {dataListSensorGreenhouse, dataValueSensor} = useSelector(
     state => state.userReducer,
   );
 
-  const getApiById = useCallback(() => {
+  const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
       dispatch(firstListSensorGreenhouse(id, respons));
-      fetchSensorData(); // Fetch real-time sensor data
+      dispatch(firstValueSensor(respons));
       setLoading(false);
     });
-  }, [dispatch, id, fetchSensorData]);
+  };
 
   useEffect(() => {
     getApiById();
-
-    // Set up interval to fetch real-time sensor data every 30 seconds (adjust as needed)
-    const intervalId = setInterval(() => {
-      fetchSensorData();
-    }, 3000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [menuMoCon, getApiById, fetchSensorData]);
-
-  console.log("Ini data sensor",dataMonitoringByid)
+    setTimeout(() => setTrigger(!trigger), 3000);
+  }, [trigger]);
 
   return (
     <>
@@ -78,9 +61,7 @@ const MonitoringScreenGH = props => {
               const matchedData = dataValueSensor.find(
                 obj => obj.channel === item.channel || obj.gpio === item.GPIO,
               );
-              console.log('Mathced Data: ', matchedData);
               const sensorValue = matchedData ? matchedData.nilai : null;
-              console.log('Sensor Data: ', sensorValue);
               if (item.greenhouseId === id) {
                 if (item.category.satuan == '%') {
                   return (

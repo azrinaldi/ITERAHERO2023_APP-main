@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-  }, 
+  },
   monitor: {
     height: '65%',
     display: 'flex',
