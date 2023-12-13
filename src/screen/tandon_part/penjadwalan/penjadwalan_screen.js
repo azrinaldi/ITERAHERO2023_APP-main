@@ -89,7 +89,7 @@ const PenjadwalanScreen = props => {
             navigate.navigate('FormPenjadwalanPage', {idTandon: id})
           }
           style={[styles.button, {backgroundColor: '#09322D', width: '100%'}]}>
-          <Text style={styles.buttonText}>Buat Jadwal</Text>
+          <Text style={styles.buttonText}>Buat Penjadwalan</Text>
         </TouchableOpacity>
       </View>
     </View>

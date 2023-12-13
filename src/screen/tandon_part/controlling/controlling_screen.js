@@ -4,7 +4,7 @@ import {View, ScrollView, RefreshControl} from 'react-native';
 import styles from './controlling_style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAktuatorTandonById} from '../../../redux/action';
+import {getAktuatorTandonById, setMenuTandon} from '../../../redux/action';
 import Loading from '../../../component/loading';
 import CardAktuatorTandon from '../../../component/card_aktuator_tandon';
 
@@ -48,7 +48,7 @@ const ControllingScreenTandon = props => {
   console.log('Aktuator: ', dataAktuatorTandonById);
   useEffect(() => {
     getApiById();
-  }, [menuTandon]);
+  }, [setMenuTandon]);
 
   return (
     <>

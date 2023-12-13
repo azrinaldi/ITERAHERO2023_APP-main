@@ -15,15 +15,16 @@ import FormPenjadwalanPage from './src/page/form_jadwal/form_penjadwalan';
 import {Provider} from 'react-redux';
 import {Store} from './src/redux/store';
 // import NoHaveInternetPage from './src/page/no_have_internet/no_have_internet_page';
-
+import {LogBox} from 'react-native';
 //notification
 import Firebase from '@react-native-firebase/app';
 import PushNotification from 'react-native-push-notification';
 
 const Stack = createNativeStackNavigator();
-
+LogBox.ignoreAllLogs();
 const App = () => {
   Firebase.initializeApp();
+
   return (
     <Provider store={Store}>
       <NavigationContainer>
