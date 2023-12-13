@@ -20,7 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import Loading from '../../component/loading';
 import CreateBy from '../../component/createBy';
 
-const LoginPage = (props) => {
+const LoginPage = props => {
   const navigation = useNavigation();
   const [isLoading, setLoading] = useState(false);
 
@@ -206,7 +206,7 @@ const LoginPage = (props) => {
 
           <View>
             <Image
-              style={{width: 200, height: 120}}
+              style={{width: 100, height: 150, resizeMode: 'contain'}}
               source={require('../../../assets/images/Logo.png')}
             />
           </View>

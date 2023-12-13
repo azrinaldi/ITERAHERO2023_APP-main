@@ -64,3 +64,6 @@ buck-out/
 /vendor/bundle/
 
 /android/local.properties
+
+# Ignore Gradle build output directory
+build
