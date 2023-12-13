@@ -19,9 +19,9 @@ import {Store} from './src/redux/store';
 //notification
 import Firebase from '@react-native-firebase/app';
 import PushNotification from 'react-native-push-notification';
-
+import {LogBox} from 'react-native';
 const Stack = createNativeStackNavigator();
-
+LogBox.ignoreAllLogs();
 const App = () => {
   Firebase.initializeApp();
   return (

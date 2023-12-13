@@ -19,8 +19,9 @@ const SplashScreenStyle = StyleSheet.create({
     logo: {
         // paddingHorizontal: 90
         // width: "100%",
-        width : 200,
-        height: 120,
+        resizeMode: 'contain',
+        width : 100,
+        height: 200,
     }
 });
 
