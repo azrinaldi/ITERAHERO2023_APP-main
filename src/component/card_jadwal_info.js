@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, Switch, Touchable, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Switch,
+  TouchableWithoutFeedback,
+  Alert,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import stylesGlobal from '../utils/style_global';
 import axios from 'axios';
-import { apiPenjadwalan, switchAkuatorTandon } from '../utils/api_link';
+import {apiPenjadwalan, switchAkuatorTandon} from '../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardJadwalInfo = props => {
@@ -14,7 +23,7 @@ const CardJadwalInfo = props => {
     axios
       .patch(
         apiPenjadwalan,
-        { id },
+        {id},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -31,9 +40,26 @@ const CardJadwalInfo = props => {
       });
   };
 
+  const handleLongPress = () => {
+    Alert.alert('Konfirmasi Hapus', 'Yakin ingin menghapus jadwal?', [
+      {
+        text: 'Batal',
+        style: 'cancel',
+      },
+      {
+        text: 'Hapus',
+        onPress: () => handleDelete(data.id),
+      },
+    ]);
+  };
+
+  const handleDelete = async id => {};
+
   return (
     <>
-      <View>
+      <TouchableHighlight
+        onLongPress={handleLongPress}
+        style={styles.TouchableHighlight}>
         <View style={styles.card}>
           <View style={styles.info}>
             <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
@@ -43,20 +69,21 @@ const CardJadwalInfo = props => {
               {data.namaGreenhouse}
             </Text>
             <Text style={[stylesGlobal.header3, stylesGlobal.primer]}>
-              {data.durasi}{' Menit'}
+              {data.durasi}
+              {' Menit'}
             </Text>
           </View>
           <View style={styles.waktu}>
-              <Text style={[stylesGlobal.header2, stylesGlobal.secondary]}>
-                {data.waktu}
-              </Text>
-              <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
-                {' WIB'}
-              </Text>
+            <Text style={[stylesGlobal.header2, stylesGlobal.secondary]}>
+              {data.waktu}
+            </Text>
+            <Text style={[stylesGlobal.header2, stylesGlobal.primer]}>
+              {' WIB'}
+            </Text>
           </View>
           <View style={styles.buttonField}>
             <Switch
-              trackColor={{ false: '#767577', true: '#D3D3D3' }}
+              trackColor={{false: '#767577', true: '#D3D3D3'}}
               thumbColor={status ? '#28a745' : '#f4f3f4'}
               onValueChange={async () => {
                 await toggleSwitch(data.id);
@@ -65,7 +92,7 @@ const CardJadwalInfo = props => {
             />
           </View>
         </View>
-      </View>
+      </TouchableHighlight>
     </>
   );
 };
@@ -79,10 +106,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     elevation: 1,
     shadowRadius: 1,
-    marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  TouchableHighlight: {
+    borderRadius: 10,
+    marginBottom: 10,
   },
   info: {
     width: '50%',
