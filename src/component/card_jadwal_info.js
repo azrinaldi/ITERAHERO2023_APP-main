@@ -4,14 +4,12 @@ import {
   View,
   Text,
   Switch,
-  TouchableWithoutFeedback,
   Alert,
-  TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
 import stylesGlobal from '../utils/style_global';
 import axios from 'axios';
-import {apiPenjadwalan, switchAkuatorTandon} from '../utils/api_link';
+import {apiPenjadwalan} from '../utils/api_link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CardJadwalInfo = props => {
@@ -35,7 +33,7 @@ const CardJadwalInfo = props => {
       .catch(err => {
         console.error(err);
       })
-      .finally(() => setAction(!action));
+      .finally(() => props.onDeleteCallback());
   };
 
   const toggleSwitch = async id => {
@@ -54,6 +52,7 @@ const CardJadwalInfo = props => {
         console.log(response.data.message);
         const updatedStatus = !status;
         setStatus(updatedStatus);
+        props.onToggleCallback();
       })
       .catch(err => {
         console.error(err);

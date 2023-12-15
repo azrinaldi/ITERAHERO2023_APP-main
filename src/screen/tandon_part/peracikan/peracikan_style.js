@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
     width: '20%', // Lebar label
+    marginRight: 10,
   },
   input: {
     color: 'black',
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
   },
+  fontDropdown: {color: 'black', fontSize: 14},
 });
 
 export default styles;

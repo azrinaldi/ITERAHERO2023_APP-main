@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, Text, TextInput, Button, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, Alert, TouchableOpacity} from 'react-native';
 
 import {Dropdown} from 'react-native-element-dropdown';
 
@@ -11,7 +11,11 @@ import styles from './peracikan_style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getFirstResepPupuk} from '../../../redux/action';
 import stylesGlobal from '../../../utils/style_global';
-import {apiPeracikan, apiSimpanResep} from '../../../utils/api_link';
+import {
+  apiPeracikan,
+  apiSimpanResep,
+  resepPupuk,
+} from '../../../utils/api_link';
 import {setMenuTandon} from '../../../redux/action';
 
 const PeracikanScreen = props => {
@@ -95,9 +99,40 @@ const PeracikanScreen = props => {
       });
   };
 
-  useEffect(() => {
-    getApi();
-  }, []);
+  const handleDelete = async id => {
+    var token = await AsyncStorage.getItem('token');
+    console.log('ID Resep', id);
+    axios
+      .delete(resepPupuk, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          id,
+        },
+      })
+      .then(response => {
+        console.log(response);
+        getApi();
+        handleDefault();
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
+  const handleHapusButton = value => {
+    Alert.alert('Konfirmasi Hapus', 'Yakin ingin menghapus resep?', [
+      {
+        text: 'Batal',
+        style: 'cancel',
+      },
+      {
+        text: 'Hapus',
+        onPress: () => handleDelete(value),
+      },
+    ]);
+  };
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -146,6 +181,10 @@ const PeracikanScreen = props => {
     handleReset();
   };
 
+  useEffect(() => {
+    getApi();
+  }, []);
+
   return (
     <View>
       <View>
@@ -163,7 +202,6 @@ const PeracikanScreen = props => {
             placeholder="Select item"
             placeholder={!isFocus ? 'Pilih Formula' : '...'}
             value={value}
-            itemContainerStyle={{}}
             itemTextStyle={{color: 'black', fontSize: 14}}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -257,14 +295,24 @@ const PeracikanScreen = props => {
               </TouchableOpacity>
             </>
           ) : (
-            <TouchableOpacity
-              onPress={() => handleRacik(value, idTandon)}
-              style={[
-                styles.button,
-                {backgroundColor: '#09322D', width: '100%'},
-              ]}>
-              <Text style={styles.buttonText}>Racik</Text>
-            </TouchableOpacity>
+            <>
+              <TouchableOpacity
+                onPress={() => handleHapusButton(value)}
+                style={[
+                  styles.button,
+                  {backgroundColor: '#B00020', width: '48%'},
+                ]}>
+                <Text style={styles.buttonText}>Hapus</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleRacik(value, idTandon)}
+                style={[
+                  styles.button,
+                  {backgroundColor: '#09322D', width: '48%'},
+                ]}>
+                <Text style={styles.buttonText}>Racik</Text>
+              </TouchableOpacity>
+            </>
           )}
         </View>
       </View>

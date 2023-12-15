@@ -49,10 +49,10 @@ const PenjadwalanScreen = props => {
       setLoading(false);
     });
   };
-  console.log('Data Jadwal :', dataJadwal);
+
   useEffect(() => {
     getApiById();
-  }, [menuTandon]);
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView
@@ -74,6 +74,8 @@ const PenjadwalanScreen = props => {
                       status: item.isActive,
                       namaGreenhouse: item.greenhouse.name,
                     }}
+                    onDeleteCallback={getApiById}
+                    onToggleCallback={getApiById}
                   />
                 ) : null}
               </>

@@ -37,7 +37,6 @@ const ControllingScreenTandon = props => {
   const {dataAktuatorTandonById, menuTandon} = useSelector(
     state => state.userReducer,
   );
-
   const getApiById = () => {
     AsyncStorage.getItem('token').then(respons => {
       dispatch(getAktuatorTandonById(id, respons));
@@ -48,7 +47,7 @@ const ControllingScreenTandon = props => {
   console.log('Aktuator: ', dataAktuatorTandonById);
   useEffect(() => {
     getApiById();
-  }, [setMenuTandon]);
+  }, []);
 
   return (
     <>
@@ -70,6 +69,7 @@ const ControllingScreenTandon = props => {
                       updated_at: item.updated_at,
                       status: item.status,
                     }}
+                    onToggleCallback={getApiById}
                   />
                 );
               })

@@ -28,6 +28,7 @@ const CardAktuatorTandon = props => {
         console.log(response.data.message);
         const updatedStatus = !status;
         setStatus(updatedStatus);
+        props.onToggleCallback();
       })
       .catch(err => {
         console.error(err);
