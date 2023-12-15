@@ -18,6 +18,26 @@ const CardJadwalInfo = props => {
   const data = props.data;
   const [status, setStatus] = useState(data.status === true);
 
+  const handleDelete = async id => {
+    var token = await AsyncStorage.getItem('token');
+    axios
+      .delete(apiPenjadwalan, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          id,
+        },
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => setAction(!action));
+  };
+
   const toggleSwitch = async id => {
     var token = await AsyncStorage.getItem('token');
     axios
@@ -52,8 +72,6 @@ const CardJadwalInfo = props => {
       },
     ]);
   };
-
-  const handleDelete = async id => {};
 
   return (
     <>
