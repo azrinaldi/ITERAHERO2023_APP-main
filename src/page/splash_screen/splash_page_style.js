@@ -20,8 +20,8 @@ const SplashScreenStyle = StyleSheet.create({
     // paddingHorizontal: 90
     // width: "100%",
     resizeMode: 'contain',
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 80,
   },
 });
 
