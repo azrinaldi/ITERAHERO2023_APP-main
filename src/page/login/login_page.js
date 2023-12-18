@@ -39,7 +39,7 @@ const LoginPage = (props) => {
       })
       .catch(error => {
         console.log(error);
-        alert('Salah browww');
+        alert('Login gagal');
       })
       .finally(() => setLoading(false));
   };
