@@ -121,7 +121,7 @@ const MonitoringScreenTandon = props => {
               </View>
             </View>
             <View style={styles.sensor}>
-              {dataListSensorTandon.map((item, index) => {
+              {dataListSensorTandon.filter(item => !item.name.toLowerCase().includes('water')).map((item, index) => {
                 const matchedData = dataValueSensor.find(
                   obj => obj.channel === item.channel || obj.gpio === item.GPIO,
                 );
