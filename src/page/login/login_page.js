@@ -206,8 +206,8 @@ const LoginPage = (props) => {
 
           <View>
             <Image
-              style={{width: 100, height: 150, resizeMode: 'contain'}}
-              source={require('../../../assets/images/Logo.png')}
+              style={{width: 200, height: 150, resizeMode: 'contain'}}
+              source={require('../../../assets/images/Logo1.png')}
             />
           </View>
         </View>

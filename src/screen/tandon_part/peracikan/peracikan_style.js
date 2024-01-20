@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '71%',
+  },
   containerSelect: {
     borderRadius: 10,
     backgroundColor: 'white',
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontFamily: 'Montserrat Bold 700',
     fontSize: 14,
-    width: '20%', // Lebar label
+    width: '25%', // Lebar label
   },
   input: {
     color: 'black',

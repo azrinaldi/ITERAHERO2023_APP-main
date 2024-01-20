@@ -114,7 +114,7 @@ const SplashScreen = (props) => {
           
           style={SplashScreenStyle.logo}
           source={
-            require('../../../assets/images/Logo.png')
+            require('../../../assets/images/Logo1.png')
           } />
         </TouchableNativeFeedback>
       </View>
